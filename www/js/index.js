@@ -44,7 +44,9 @@ var app = {
     listeningElement.setAttribute('style', 'display:none;');
     receivedElement.setAttribute('style', 'display:block;');
 
+    receivedElement.innerHTML = navigator.contacts.length
+
     console.log('Received Event: ' + id);
-    alert(navigator.contacts.length);
+    //alert(navigator.contacts.length); // didn't work on real android?
   }
 };
