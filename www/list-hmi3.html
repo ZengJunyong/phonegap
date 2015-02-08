@@ -1,0 +1,177 @@
+
+<!doctype html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="target-densitydpi=medium-dpi,width=device-width,initial-scale=1.0,minimum-scale=1.0, maximum-scale=1.0,user-scalable=no">
+<title>用户</title>
+<link href="css/base.css" rel="stylesheet" type="text/css">
+<link href="css/global.css" rel="stylesheet" type="text/css">
+<script src="js/kinvey-html5-1.1.7.min.js"></script>
+<script src="js/jquery.js"></script>
+<script src="js/cn.js"></script>
+<script src="js/adaptUILayout.min.js"></script>
+<script src="js/touch.js"></script>
+<script src="js/mac.js"></script>
+<script src="js/mousewheel.js"></script>
+<script src="js/pager.js"></script>
+<script src="js/grid.js"></script>
+<script src="js/global.js"></script>
+</head>
+
+<body>
+<div class="wrap">
+    <header>
+        <div class="nav"></div>
+        Offer Selection Support
+        <div class="headlogo"></div>
+    </header>
+
+    <nav>
+        <div class="return"></div>
+        PANORAMA - HMI
+    </nav>
+    <div class="titleNav">  
+        HMI Controller  
+    </div>
+
+    <div class="demoPanel">
+
+        <div class="viewPort demoPanel">
+            <div class="view grid fixColGrid"></div>
+        </div>
+
+    </div>
+    
+    <script type="text/javascript">
+    $(function() {
+        //初始化
+        var promise = Kinvey.init({
+            appKey: 'kid_eTzsTVEU1O',
+            appSecret: 'c57ef4f8036a4ca3b909141ef231ea04',
+            sync: {
+                enable: true,
+                online: navigator.onLine
+            }
+        }).then(function() {
+            var query = new Kinvey.Query();
+            query.ascending("Harmony");
+            var promise = Kinvey.DataStore.find("HmiController", query, {
+                offline : offlineFlag,
+              success: function(response) {
+                createList(response);
+              }
+            });
+        });
+        function createList(data){   
+            console.log(data); 
+            $("#layoutBg").fadeOut(300);
+            $("#layoutBdload").fadeOut(300);
+            var pg = $('body');
+            var vw = pg.find('.view');
+            //蓝色第三个
+                vw.mac('grid', {
+                    sortLocally: true,
+                    headerHeight: 48,
+                    rowHeight : 32,
+                    cols : [{
+                        field: 'Magelis', width: 74, title : 'Magelis HMI',
+                        sizeable: true, moveable: false,
+                        render: function(r, tr){
+                            if(r["Magelis HMI"]){
+                                if(r.eshop){
+                                    return "<a href='"+r.eshop+"' >"+r["Magelis HMI"]+"</a>";
+                                }else{
+                                    return r["Magelis HMI"];
+                                }
+                            }else{
+                                return '';
+                            }
+                        }
+                    },{
+                        field: "3.5''-4.3''", title : "3.5''-4.3''", width: 152,
+                        render: function(r, tr){
+                            if(r["3__5''-4__3''"])
+                                if(r["3__5''-4__3''"]=="a"){
+                                    return "<img class='check' width=20 height=20 src='images/checkg.png' />";
+                                }
+                            return '';
+                        }
+                    },{
+                        field: "5.7''", title : "5.7''", width: 152,
+                        render: function(r, tr){
+                            if(r["5__7''"])
+                                if(r["5__7''"]=="a"){
+                                    return "<img class='check' width=20 height=20 src='images/checkg.png' />";
+                                }
+                            return '';
+                        }
+                    },{
+                        field: 'touch / keypad', title : 'touch / keypad', width: 152,
+                        render: function(r, tr){
+                            if(r["touch / keypad"])
+                                return r["touch / keypad"];
+                            return '';
+                        }
+                    },{
+                        field: 'Performance', title : 'Performance', width: 152,
+                        render: function(r, tr){
+                            if(r["Performance"])
+                                return getperformance(r["Performance"]);
+                            return '';
+                        }
+                    },{
+                        field: 'Software', title : 'Software', width: 152,
+                        render: function(r, tr){
+                            if(r["Software"])
+                                return r["Software"];
+                            return '';
+                        }
+                    },{
+                        field: 'Operating Temperature', title : 'Operating Temperature', width: 152,
+                        render: function(r, tr){
+                            if(r["Operating Temperature"])
+                                return r["Operating Temperature"];
+                            return '';
+                        }
+                    },{
+                        field: 'Industrial Certifications', title : 'Industrial Certifications', width: 162,
+                        render: function(r, tr){
+                            if(r["Industrial Certifications"])
+                                return r["Industrial Certifications"];
+                            return '';
+                        }
+                    },{
+                        field: 'Modularity', title : 'Modularity', width: 152,
+                        render: function(r, tr){
+                            if(r["Modularity"])
+                                return r["Modularity"];
+                            return '';
+                        }
+                    }],
+                    loader: {
+                        url: data,
+                        params: { pageNo: 1},
+                        autoLoad: true
+                    },
+                    afterLoad: function(dd, po, me){
+                        
+                    }
+                });
+            vw.mac('grid_fixCol');
+            var fns = ['Magelis'];
+            vw.lockCols(fns);
+        }
+    })
+
+    </script>
+
+    
+
+    <div id="layoutBg" style="display:block;"></div>
+    <div id="layoutBdload" style="display:block;">
+        <img src="images/ajax-loader.gif" />
+    </div>
+</div>  
+</body>
+</html>

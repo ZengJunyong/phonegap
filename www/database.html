@@ -1,0 +1,532 @@
+
+<!doctype html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="target-densitydpi=medium-dpi,width=device-width,initial-scale=1.0,minimum-scale=1.0, maximum-scale=1.0,user-scalable=no">
+<title>contact</title>
+<link href="css/base.css" rel="stylesheet" type="text/css">
+<link href="css/global.css" rel="stylesheet" type="text/css">
+<script src="js/kinvey-html5-1.1.7.min.js"></script>
+<script src="js/jquery.js"></script>
+<script src="js/adaptUILayout.min.js"></script>
+<script src="js/touch.js"></script>
+<script src="js/global.js"></script>
+</head>
+
+<body style="background: #e6e6e6;">
+<div class="wrap">
+    <header>
+        <div class="nav"></div>
+        Offer Selection Support
+        <div class="headlogo"></div>
+    </header>
+
+    <nav>
+        <div class="return"></div>
+        DATABASE
+    </nav>
+
+    <section id="dataUp" class="database" style="margin-top:-24px;">
+        <ul>
+
+            <li>
+                <h5 class="alignCenter">Panorama</h5>
+                <div time="prahmi"  dbname='HmiController,HmiIndustryPC,HmiOperatorInterfaceHMI' class="iconBd" dbUpdateName="hmiupdatename">
+                    <div class="icons hmi"></div>
+                    <div class="title">HMI</div>
+                    <script type="text/javascript">
+                    if(localStorage.prahmi){
+                        document.write('<div class="time"><i>'+localStorage.prahmi+'</i></div>');
+                        document.write(' <div tablename="hmiP" id="hmi" con="Panorama" class="checking"></div>');
+                    }else{
+                        document.write('<div class="time"><i>&nbsp;</i></div>');
+                        document.write(' <div tablename="hmiP" id="hmi" con="Panorama" class="down"></div>');
+                    }
+                    </script>
+                </div>
+                <div class="dustbin">
+                    &nbsp;
+                    <div class="bin"></div>
+                </div>
+
+                <div time="prasign" dbname='SigBeacon,SignalingSos,SigSound,SigTowerLight' class="iconBd" dbUpdateName="sigupdatename">
+                    <div class="icons sign"></div>
+                    <div class="title">Signaling</div>
+                    <script type="text/javascript">
+                    if(localStorage.prasign){
+                        document.write('<div class="time"><i>'+localStorage.prasign+'</i></div>');
+                        document.write(' <div tablename="signaling" id="sig" con="Panorama" class="checking"></div>');
+                    }else{
+                        document.write('<div class="time"><i>&nbsp;</i></div>');
+                        document.write(' <div tablename="signaling" id="sig" con="Panorama" class="down"></div>');
+                    }
+                    </script>
+                </div>
+                <div class="dustbin">
+                    &nbsp;
+                    <div class="bin"></div>
+                </div>
+
+                <div time="pracontrol" dbname='ControlControlStations,ControlPushbuttons' class="iconBd" dbUpdateName="controllerupdatename">
+                    <div class="icons control"></div>
+                    <div class="title">Control</div>
+                    <script type="text/javascript">
+                    if(localStorage.pracontrol){
+                        document.write('<div class="time"><i>'+localStorage.pracontrol+'</i></div>');
+                        document.write(' <div tablename="control" id="controller" con="Panorama" class="checking"></div>');
+                    }else{
+                        document.write('<div class="time"><i>&nbsp;</i></div>');
+                        document.write(' <div tablename="control" id="controller" con="Panorama" class="down"></div>');
+                    }
+                    </script>
+                </div>
+
+                <div class="dustbin">
+                    &nbsp;
+                    <div class="bin"></div>
+                </div>
+
+                <div time="prarelay" dbname='ElrAnalog,ElrControl,ElrCounter,ElrTemperatureController,ElrTimer,EmrElectromechanicalRelay,EmrSolidStateRelay'class="iconBd" dbUpdateName="relayupdatename">
+                    <div class="icons relays"></div>
+                    <div class="title">Relays</div>
+                    <script type="text/javascript">
+                    if(localStorage.prarelay){
+                        document.write('<div class="time"><i>'+localStorage.prarelay+'</i></div>');
+                        document.write(' <div tablename="relays" id="relay" con="Panorama" class="checking"></div>');
+                    }else{
+                        document.write('<div class="time"><i>&nbsp;</i></div>');
+                        document.write(' <div tablename="relays" id="relay" con="Panorama" class="down"></div>');
+                    }
+                    </script>
+                </div>
+                <div class="dustbin">
+                    &nbsp;
+                    <div class="bin"></div>
+                </div>
+            </li>
+
+            <li>
+                <h5 class="alignCenter">Cross Reference</h5>
+                <div time="HMISostime" dbname="HMISos" class="iconBd" dbUpdateName="hmisosupdatename">
+                    <div class="icons hmi"></div>
+                    <div class="title">HMI</div>
+                    <script type="text/javascript">
+                    if(localStorage.HMISostime){
+                        document.write('<div class="time"><i>'+localStorage.HMISostime+'</i></div>');
+                        document.write(' <div tablename="hmi" id="hmisos" class="checking"></div>');
+                    }else{
+                        document.write('<div class="time"><i>&nbsp;</i></div>');
+                        document.write(' <div tablename="hmi" id="hmisos" class="down"></div>');
+                    }
+                    </script>
+                </div>
+                <div class="dustbin">
+                    &nbsp;
+                    <div class="bin"></div>
+                </div>
+
+                <div time="SignalingSostime" dbname="SignalingSos" class="iconBd" dbUpdateName="sigsosupdatename">
+                    <div class="icons sign"></div>
+                    <div class="title">Signaling</div>
+                    <script type="text/javascript">
+                    if(localStorage.SignalingSostime){
+                        document.write('<div class="time"><i>'+localStorage.SignalingSostime+'</i></div>');
+                        document.write(' <div tablename="signaling" id="sigsos" class="checking"></div>');
+                    }else{
+                        document.write('<div class="time"><i>&nbsp;</i></div>');
+                        document.write(' <div tablename="signaling" id="sigsos" class="down"></div>');
+                    }
+                    </script>
+                </div>
+                <div class="dustbin">
+                    &nbsp;
+                    <div class="bin"></div>
+                </div>
+
+                <div time="ControlSostime" dbname="ControlSos" class="iconBd" dbUpdateName="controllersosupdatename">
+                    <div class="icons control"></div>
+                    <div class="title">Control</div>
+                    <script type="text/javascript">
+                    if(localStorage.ControlSostime){
+                        document.write('<div class="time"><i>'+localStorage.ControlSostime+'</i></div>');
+                        document.write('<div tablename="control" id="controllersos" class="checking"></div>');
+                    }else{
+                        document.write('<div class="time"><i>&nbsp;</i></div>');
+                        document.write(' <div tablename="control" id="controllersos" class="down"></div>');
+                    }
+                    </script>
+                </div>
+
+                <div class="dustbin">
+                    &nbsp;
+                    <div class="bin"></div>
+                </div>
+
+                <div time="RelaysSostime" dbname="RelaysSos" class="iconBd" dbUpdateName="relaysosupdatename">
+                    <div class="icons relays"></div>
+                    <div class="title">Relays</div>
+
+                    <script type="text/javascript">
+                    if(localStorage.RelaysSostime){
+                        document.write('<div class="time"><i>'+localStorage.RelaysSostime+'</i></div>');
+                        document.write(' <div tablename="relays" id="relaysos" class="checking"></div>');
+                    }else{
+                        document.write('<div class="time"><i>&nbsp;</i></div>');
+                        document.write(' <div tablename="relays" id="relaysos" class="down"></div>');
+                    }
+                    </script>
+
+                </div>
+                <div class="dustbin">
+                    &nbsp;
+                    <div class="bin"></div>
+                </div>
+            </li>
+
+            <!-- <li class="slt">
+                <span class="check"></span>
+                <h5>Notify me upon updates</h5>
+            </li> -->
+        </ul>
+    </section>
+    <script type="text/javascript">
+        $(function() {
+            //初始化
+            var promise = Kinvey.init({
+                appKey: 'kid_eTzsTVEU1O',
+                appSecret: 'c57ef4f8036a4ca3b909141ef231ea04',
+                sync: {
+                    enable: true,
+                    online: navigator.onLine
+                }
+            }).then(function() {
+                //读取DB更新表单数据
+                var queryDB = new Kinvey.Query();
+                queryDB.ascending("_id");
+                Kinvey.DataStore.find("DbUpdate", queryDB, {
+                    offline : offlineFlag,
+                    success: function(response) {
+                        if(response){
+                            //往本地塞数据
+                            for(var i=0;i<response.length;i++){
+                                var dbUpdateName = (response[i].dbname + "updatename");
+                                var dbUpdateTime = (response[i].updatetime);
+                                if(localStorage[dbUpdateName]){
+                                    //如果存在，读取更新时间
+                                    var localtime = localStorage[dbUpdateName];
+                                    if(dbUpdateTime==localtime){
+                                        //如果时间相同，则代表不需要更新
+                                    }else{
+                                        //按钮显示为更新按钮
+                                        $("#"+response[i].dbname).removeClass('checking').removeClass('down').addClass('update').attr("dbUpdateTime",dbUpdateTime);
+
+                                        //数据下载按钮
+                                        $("#dataUp .update").click(function(event) {
+                                            var that = $(this);
+                                            var method = Kinvey.Sync.isOnline();
+                                            $("#layoutBg").css("display","block");
+                                            $("#layoutBdload").css("display","block");
+                                            var query = new Kinvey.Query();
+                                            localStorage.setItem(that.parents(".iconBd").attr("dbUpdateName"),$(this).attr("dbUpdateTime"));
+                                            var tale_name;
+                                            var con = $(this).attr("con");
+                                            var qtype = $(this).attr("tablename");
+                                            //如果在线
+                                            if(method){
+                                                if(con==undefined){
+                                                    //搜索表单操作
+                                                        if (qtype == "control") {
+                                                            tale_name = "ControlSos";
+                                                        } else if (qtype == "relays") {
+                                                            tale_name = "RelaysSos";
+                                                        } else if (qtype == "signaling") {
+                                                            tale_name = "SignalingSos";
+                                                        } else if (qtype == "hmi") {
+                                                            tale_name = "HMISos";
+                                                        }
+                                                    query.ascending("_id");
+                                                    var promise = Kinvey.DataStore.count(tale_name, query, {
+                                                        offline : offlineFlag,
+                                                      success: function(response) {
+                                                        var len = response;
+                                                        var step = 100;
+                                                        for(s=0;s<Math.ceil(len/step);s++){
+                                                            var query2 = new Kinvey.Query();
+                                                            query2.limit(step).skip(s*step).ascending('_id');
+                                                            var promise2 = Kinvey.DataStore.find(tale_name, query2, {
+                                                                offline : offlineFlag,
+                                                                success: function(response2) {
+                                                                        that.removeClass('update').removeClass('update').addClass('checking');
+                                                                        $("#layoutBg").css("display","none");
+                                                                        $("#layoutBdload").css("display","none");
+                                                                        that.parents(".iconBd").find('i').text(dbUpdateTime);
+                                                                         localStorage.setItem(tale_name+"time",dbUpdateTime);
+                                                                }
+                                                            });
+                                                        }
+
+                                                      }
+                                                    });
+
+
+                                                }else{
+                                                    //paranama的离线做法
+                                                    var hmi_par = ["HmiController","HmiIndustryPC","HmiOperatorInterfaceHMI"];
+                                                    var relay_par = ["ElrAnalog","ElrControl","ElrCounter","ElrTemperatureController","ElrTimer","EmrElectromechanicalRelay","EmrSolidStateRelay"];
+                                                    var control_par = ["ControlControlStations","ControlPushbuttons"];
+                                                    var sig_par  = ["SigBeacon","SignalingSos","SigSound","SigTowerLight"];
+                                                    var ptablename = [];
+                                                    var localName;
+                                                    if (qtype == "control") {
+                                                            ptablename = control_par;
+                                                            localName = "pracontrol";
+                                                        } else if (qtype == "relays") {
+                                                            ptablename = relay_par;
+                                                            localName = "prarelay";
+                                                        } else if (qtype == "signaling") {
+                                                            ptablename = sig_par;
+                                                            localName = "prasign"
+                                                        } else if (qtype == "hmiP") {
+                                                            ptablename = hmi_par;
+                                                            localName = "prahmi";
+                                                        }
+
+                                                        var si=0;
+
+                                                        for(j=0;j<ptablename.length;j++){
+                                                            setTimeout(function(){
+                                                                runs(si++);
+                                                            },3000);
+                                                        }
+
+
+
+                                                    function runs(cur){
+                                                            var tbname = ptablename[cur];
+                                                            var query = new Kinvey.Query();
+                                                            query.ascending("_id");
+                                                            var promise = Kinvey.DataStore.count(tbname, query, {
+                                                                offline : offlineFlag,
+                                                                success: function(response) {
+                                                                    var len = response;
+                                                                    var step = 100;
+                                                                    for(s=0;s<Math.ceil(len/step);s++){
+                                                                        var query2 = new Kinvey.Query();
+                                                                        query2.limit(step).skip(s*step).ascending('_id');
+                                                                        var promise2 = Kinvey.DataStore.find(tbname, query2, {
+                                                                            offline : offlineFlag,
+                                                                            success: function(response2) {
+                                                                                that.removeClass('down').removeClass('update').addClass('checking');
+                                                                                $("#layoutBg").css("display","none");
+                                                                                $("#layoutBdload").css("display","none");
+                                                                                that.parents(".iconBd").find('i').text(createTime());
+                                                                                localStorage.setItem(localName,createTime());
+                                                                                 localStorage.setItem(dbUpdateName,dbUpdateTime);
+                                                                            }
+                                                                        });
+                                                                    }
+                                                                }
+
+                                                            });
+
+                                                    }
+                                                }
+                                            }else{
+                                                alert("请链接网络后在进行下载");
+                                            }
+                                        });
+
+                                    }
+                                }else{
+                                    localStorage.setItem(dbUpdateName,dbUpdateTime);
+                                }
+                            }
+                        }
+                    }
+                });
+
+            });
+
+            function downClick(){
+                //数据下载按钮
+                $("#dataUp .down").click(function(event) {
+                    var that = $(this);
+                    var method = Kinvey.Sync.isOnline();
+                    $("#layoutBg").css("display","block");
+                    $("#layoutBdload").css("display","block");
+                    var query = new Kinvey.Query();
+
+                    var tale_name;
+                    var con = $(this).attr("con");
+                    var qtype = $(this).attr("tablename");
+                    //如果在线
+                    if(method){
+                        if(con==undefined){
+                            //搜索表单操作
+                                if (qtype == "control") {
+                                    tale_name = "ControlSos";
+                                } else if (qtype == "relays") {
+                                    tale_name = "RelaysSos";
+                                } else if (qtype == "signaling") {
+                                    tale_name = "SignalingSos";
+                                } else if (qtype == "hmi") {
+                                    tale_name = "HMISos";
+                                }
+                            query.ascending("_id");
+                            var promise = Kinvey.DataStore.count(tale_name, query, {
+                                offline : offlineFlag,
+                              success: function(response) {
+                                console.log(response)
+                                var len = response;
+                                var step = 100;
+                                for(s=0;s<Math.ceil(len/step);s++){
+                                    var query2 = new Kinvey.Query();
+                                    query2.limit(step).skip(s*step).ascending('_id');
+                                    var promise2 = Kinvey.DataStore.find(tale_name, query2, {
+                                        offline : offlineFlag,
+                                        success: function(response2) {
+                                                that.removeClass('down').removeClass('update').addClass('checking');
+                                                $("#layoutBg").css("display","none");
+                                                $("#layoutBdload").css("display","none");
+                                                that.parents(".iconBd").find('i').text(createTime());
+                                                localStorage.setItem(tale_name+"time",createTime());
+                                        }
+                                    });
+                                }
+
+                              }
+                            });
+
+
+                        }else{
+                            //paranama的离线做法
+                            var hmi_par = ["HmiController","HmiIndustryPC","HmiOperatorInterfaceHMI"];
+                            var relay_par = ["ElrAnalog","ElrControl","ElrCounter","ElrTemperatureController","ElrTimer","EmrElectromechanicalRelay","EmrSolidStateRelay"];
+                            var control_par = ["ControlControlStations","ControlPushbuttons"];
+                            var sig_par  = ["SigBeacon","SignalingSos","SigSound","SigTowerLight"];
+                            var ptablename = [];
+                            var localName;
+                            if (qtype == "control") {
+                                    ptablename = control_par;
+                                    localName = "pracontrol";
+                                } else if (qtype == "relays") {
+                                    ptablename = relay_par;
+                                    localName = "prarelay";
+                                } else if (qtype == "signaling") {
+                                    ptablename = sig_par;
+                                    localName = "prasign"
+                                } else if (qtype == "hmiP") {
+                                    ptablename = hmi_par;
+                                    localName = "prahmi";
+                                }
+
+                                var si=0;
+
+                                for(j=0;j<ptablename.length;j++){
+                                    setTimeout(function(){
+                                        runs(si++);
+                                    },3000);
+                                }
+
+
+
+                            function runs(cur){
+                                    var tbname = ptablename[cur];
+                                    var query = new Kinvey.Query();
+                                    query.ascending("_id");
+                                    var promise = Kinvey.DataStore.count(tbname, query, {
+                                        offline : offlineFlag,
+                                        success: function(response) {
+                                            var len = response;
+                                            var step = 100;
+                                            for(s=0;s<Math.ceil(len/step);s++){
+                                                var query2 = new Kinvey.Query();
+                                                query2.limit(step).skip(s*step).ascending('_id');
+                                                var promise2 = Kinvey.DataStore.find(tbname, query2, {
+                                                    offline : offlineFlag,
+                                                    success: function(response2) {
+                                                        that.removeClass('down').removeClass('update').addClass('checking');
+                                                        $("#layoutBg").css("display","none");
+                                                        $("#layoutBdload").css("display","none");
+                                                        that.parents(".iconBd").find('i').text(createTime());
+                                                        localStorage.setItem(localName,createTime());
+                                                    }
+                                                });
+                                            }
+                                        }
+
+                                    });
+
+                            }
+                        }
+                    }else{
+                        alert("请链接网络后在进行下载");
+                    }
+                });
+            }
+
+            downClick();
+
+
+            //出现删除按钮
+            $(".iconBd").click(function(event) {
+                if($(event.target).hasClass('down') || $(event.target).find('.down').length!=0){
+                    return false;
+                }
+                var dust = $(this).next();
+                dust.css("display") == "block" ? dust.css("display","none") : dust.css("display","block") ;
+            });
+
+            $(".dustbin .bin").click(function(event) {
+                var that = $(this).parent();
+                var lo = $(this).parent().prev();
+                var DbName = lo.attr("dbname");
+                var time = lo.attr("time");
+                //获取按钮
+                var down = lo.find(".checking");
+                //实例化IndexDB数据上下文，这边根据浏览器类型来做选择
+                var indexedDB = window.indexedDB || window.webkitIndexedDB ||window.mozIndexedDB;
+
+                if ('webkitIndexedDB' in window) {
+                    window.IDBTransaction = window.webkitIDBTransaction;
+                    window.IDBKeyRange = window.webkitIDBKeyRange;
+                }
+                var request = indexedDB.open("Kinvey.kid_eTzsTVEU1O");
+                request.onsuccess = function (e) {
+                    var db = e.target.result;
+                    var dbarr = DbName.split(",");
+                    if(dbarr.length>1){
+                        for (var i = 0; i < dbarr.length; i++) {
+                            clearObjectStore(db,dbarr[i]);
+                        };
+                    }else{
+                        clearObjectStore(db,DbName);
+                    }
+                    //移除本地的时间段
+                    localStorage.removeItem(time);
+                    down.removeClass('checking').addClass('down');
+                    downClick();
+                    //时间放空
+                    lo.find("i").html("&nbsp;");
+                    that.css("display","none");
+                }
+
+            });
+
+            function clearObjectStore(db,storeName){
+            	console.log(storeName);
+                var transaction=db.transaction(storeName,'readwrite');
+                var store=transaction.objectStore(storeName);
+                store.clear();
+            }
+        })
+    </script>
+</div>
+
+<div id="layoutBg"></div>
+    <div id="layoutBdload">
+        <img src="images/ajax-loader.gif" />
+    </div>
+</body>
+</html>
