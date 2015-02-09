@@ -12,8 +12,8 @@
 <script src="js/adaptUILayout.min.js"></script>
 <script src="js/touch.js"></script>
 <script src="js/global.js"></script>
-<link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
-<script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+<link rel="stylesheet" href="css/jquery-ui.css">
+<script src="js/jquery-ui.js"></script>
 </head>
 
 <body>
@@ -104,7 +104,7 @@
                 $li.eq(3).addClass('active').siblings().removeClass('active');
                 $ul.eq(3).addClass('active').siblings().removeClass('active');
             }
-            
+
             var tale_name = "";
             if(temp=="control"){
 				tale_name = "ControlSos";
@@ -123,7 +123,7 @@
 					source: localStorage.getItem(cachename).split(",")
 				});
 			}else{
-			
+
 				var queryinit = new Kinvey.Query();
 				queryinit.ascending('Part Number');
 				queryinit.fields([ 'Part Number','Brand']);
@@ -131,7 +131,7 @@
 					appKey    : 'kid_eTzsTVEU1O',
 					appSecret : 'c57ef4f8036a4ca3b909141ef231ea04',
 				}).then(function() {
-				
+
 					var promise = Kinvey.DataStore.find(tale_name, queryinit, {
 						//offline : true,
 						success: function(response) {
@@ -144,7 +144,7 @@
 								});
 								partNumer = distinctArray(tmpPartNumer);
 								//alert("2--"+partNumer.length);
-							
+
 								//setCarr();
 								//console.log(partNumer);
 								//localStorage[tale_name] = partNumer;
@@ -159,14 +159,14 @@
 				});
 			}
         });
-        
-        
+
+
 
         $("#panorama").click(function(event) {
             var _type = $("#mainCheck li.active p").text().toLowerCase();
             window.location.href="main.html?c="+_type+"";
         });
-     
+
 
 		function distinctArray(arr){
 			var obj={},temp=[];
