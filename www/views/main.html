@@ -1,0 +1,74 @@
+<div class="container" ng-controller="MainCtrl" ng-swipe-left="swipeLeft()" ng-swipe-right="swipeRight()">
+    <ul ng-style="leftStyle" class="dropdown-menu left-menu visible-xs visible-sm ng-hide menu-left" ng-show="showLeftMenu">
+
+        <li><div style="color: #4FA600;padding: 10px 0 20px 20px;font-size: 18px;" > Application Library</div> </li>
+        <li hide-menu><a data-ui-sref="main.home">Home</a></li>
+        <li hide-menu><a data-ui-sref="main.new">New Application</a></li>
+        <li hide-menu><a data-ui-sref="main.support">Support</a></li>
+        <li hide-menu><a data-ui-sref="main.contact">Contact</a></li>
+        <li>
+            <a ng-click="submenu=!submenu"  href="javascript:void(0)">
+                <span ng-if="!submenu" class="glyphicon glyphicon-plus pull-right"></span>
+                <span ng-if="submenu" class="glyphicon glyphicon-minus pull-right"></span>
+                Setting
+            </a>
+        </li>
+        <li hide-menu ng-show="submenu" ng-if="login"><a style="margin-left: 30px;" class="padding10" href="#">{{name}}</a></li>
+        <li hide-menu ng-show="submenu" ng-if="login" ng-click="logout()"><a style="margin-left: 30px;" class="padding10" href="#">Logout</a></li>
+        <li hide-menu ng-show="submenu" ng-if="!login"><a class="padding10" style="margin-left: 30px;" data-ui-sref="main.login">Login</a></li>
+        <li hide-menu ng-show="submenu"><a style="margin-left: 30px;" href="#"> Language</a></li>
+    </ul>
+    <nav style="margin-top: 20px;">
+        <ul class="nav navbar-nav navbar-right hidden-xs hidden-sm" style="margin-left: 0px;font-size: 12px;">
+            <li ng-if="login"><a style="cursor: pointer;" class="padding10">{{name}}</a></li>
+            <li ng-if="login" style="padding: 12px 0 15px 0;">|</li>
+            <li ng-click="logout()" ng-if="login"><a style="cursor: pointer;" class="padding10">Logout</a></li>
+            <li ng-if="!login"><a style="cursor: pointer;" class="padding10" data-ui-sref="main.login">Login</a></li>
+            <li style="padding: 12px 0 15px 0;">|</li>
+            <li><a style="cursor: pointer;" class="padding10">Language</a></li>
+        </ul>
+        <button type="button" class="navbar-toggle collapsed visible-xs visible-sm menu" ng-click="toggleMenu()">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <!--<span class="glyphicon glyphicon-th-list visible-xs visible-sm menu" ng-click="toggleMenu()"></span>-->
+        <a class="logo" href="#">
+            <img src="images/logo.png" width="120"/>
+        </a>
+        <ul class="nav nav-pills hidden-xs hidden-sm" style="font-weight: bold;">
+            <li><a data-ui-sref="main.home">Home</a></li>
+            <li><a data-ui-sref="main.new">New Application</a></li>
+            <li><a data-ui-sref="main.support">Support</a></li>
+            <li><a data-ui-sref="main.contact">Contact</a></li>
+        </ul>
+    </nav>
+    <div class="row">
+        <!--<div ng-if="title=='home'" style="position: absolute;color: white;padding: 25px 0 0 30px;font-size: 25px;">-->
+            <!--Application memo-->
+            <!--<br/>-->
+            <!--<span style="font-size: 22px;color: #009530;">Library</span>-->
+        <!--</div>-->
+        <!--<div ng-if="title=='new'" style="position: absolute;color: white;padding: 25px 0 0 30px;font-size: 25px;">-->
+            <!--New Application-->
+
+        <!--</div>-->
+        <!--<div ng-if="title=='support'" style="position: absolute;color: white;padding: 25px 0 0 30px;font-size: 25px;">-->
+            <!--Support-->
+        <!--</div>-->
+        <!--<div ng-if="title=='contact'" style="position: absolute;color: white;padding: 25px 0 0 30px;font-size: 25px;">-->
+            <!--Contact-->
+        <!--</div>-->
+        <!--<div ng-if="title=='contact'" style="position: absolute;color: white;padding: 25px 0 0 30px;font-size: 25px;">-->
+            <!--Contact-->
+        <!--</div>-->
+        <img class="img-responsive visible-lg visible-md" src="images/bg1.jpg" alt=""/>
+        <img class="img-responsive visible-sm visible-xs" src="images/bg2.jpg" alt=""/>
+        <!--<img ng-if="title=='none'" class="img-responsive" src="images/bg.jpg" alt=""/>-->
+        <!--<img ng-if="title=='home'" class="img-responsive" src="images/01.png" alt=""/>-->
+        <!--<img ng-if="title=='new'" class="img-responsive" src="images/02.png" alt=""/>-->
+        <!--<img ng-if="title=='support'" class="img-responsive" src="images/03.png" alt=""/>-->
+        <!--<img ng-if="title=='contact'" class="img-responsive" src="images/04.png" alt=""/>-->
+    </div>
+    <ui-view></ui-view>
+</div>

@@ -1,38 +1,29 @@
-
 <!doctype html>
-<html>
+<html lang="en">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="viewport" content="target-densitydpi=medium-dpi,width=device-width,initial-scale=1.0,minimum-scale=1.0, maximum-scale=1.0,user-scalable=no">
-<title>封面</title>
-<link href="css/base.css" rel="stylesheet" type="text/css">
-<link href="css/global.css" rel="stylesheet" type="text/css">
-<script src="js/kinvey-html5-1.1.7.min.js"></script>
-<script src="js/jquery.js"></script>
-<script src="js/adaptUILayout.min.js"></script>
-<script src="js/touch.js"></script>
-<script src="js/global.js"></script>
+    <meta charset="utf-8">
+    <title>Schneider Electric</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="bower_components/ui-select/dist/select.css">
+    <link rel="stylesheet" href="bower_components/selectize.default.css">
+    <link rel="stylesheet" href="styles/main.css">
 </head>
-
-<body class="green">
-<div class="wrap">
-    <div class="version white">
-        Offer Selection Support<br/>
-        <span>v1.0</span>
-    </div>
-
-    <div class="logoIndex"></div>
-
-    <div class="logo logoWhite footlogo"></div>
-
-    <script type="text/javascript">
-    setTimeout(function() {
-    	$("body").fadeOut(1000, function() {
-    		window.location.href="login.html";
-    	});
-    },3000)
-    </script>
-</div>
-<script type="text/javascript" src="http://debug.build.phonegap.com/target/target-script-min.js#053029ca-5272-11e3-9002-12313d16b935"></script></body>
-
+<body ng-app="Schneider" debug-scope ng-style="bodyStyle" ng-class="{'menu-body':showLeftMenu}">
+<ui-view></ui-view>
+<script src="bower_components/underscore/underscore.js"></script>
+<script src="bower_components/angular.js"></script>
+<script src="bower_components/angular-animate/angular-animate.js"></script>
+<script src="bower_components/angular-cookies/angular-cookies.js"></script>
+<script src="bower_components/angularLocalStorage/src/angularLocalStorage.js"></script>
+<script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+<script src="bower_components/angular-touch/angular-touch.js"></script>
+<script src="bower_components/angular-sanitize.js"></script>
+<script src="bower_components/ui-select/dist/select.js"></script>
+<script type="text/javascript" src="scripts/DebugScope.js"></script>
+<script src="scripts/kinvey-angular-1.1.4.min.js"></script>
+<script src="scripts/Blob.js"></script>
+<script src="scripts/FileSaver.js"></script>
+<script src="scripts/app.js"></script>
+</body>
 </html>

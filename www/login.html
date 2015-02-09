@@ -1,99 +1,41 @@
-
 <!doctype html>
-<html>
+<html lang="en">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="viewport" content="target-densitydpi=medium-dpi,width=device-width,initial-scale=1.0,minimum-scale=1.0, maximum-scale=1.0,user-scalable=no">
-<title>登陆</title>
-<link href="css/base.css" rel="stylesheet" type="text/css">
-<link href="css/global.css" rel="stylesheet" type="text/css">
-<script src="js/kinvey-html5-1.1.7.min.js"></script>
-<script src="js/jquery.js"></script>
-<script src="js/adaptUILayout.min.js"></script>
-<script src="js/touch.js"></script>
-<script src="js/global.js"></script>
+    <meta charset="utf-8">
+    <title>Schneider Electric</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="styles/main.css">
 </head>
-
 <body>
+<div class="container">
+    <form role="form">
+        <div class="form-group" style="color:#31a048;">
+            <h1>Application Name</h1>
 
-    <div class="wrap" style="height:100%;">
-
-        <div class="version green">
-            Offer Selection Support<br/>
-            <span>v1.0</span>
+            <p>Version Number</p>
         </div>
-
-        <div class="loginCon">
-        	<input type="text" id="user" placeholder="Usename" >
-        	<input type="password" id="pwd" placeholder="Password" >
-
-        	<h3 id="remember" class="black"><span class="check"></span>Remember me</h3>
-
-        	<h3 id="forget" class="blue underline">Forgot Password?</h3>
-
-            <input id="login" type="button" value="Login">
-
-            <h3 class="grey alignCenter">Only For Internal Use</h3>
-
+        <div class="form-group">
+            <input type="text" class="form-control" placeholder="Login">
         </div>
-
-        <div class="logo logoGreen footlogo"></div>
-
-        <div id="layoutBg"></div>
-        <div id="layoutBd">
-            <h2 class="green">Forgot Password ?</h2>
-            <h5>A password reset email has been sent to your email address, please follow the instruction in the email to proceed.</h5>
-            <h2 id="closed" class="deepblack closed">Close</h2>
-            <h2 id="ok" class="green ok">OK</h2>
+        <div class="form-group">
+            <input type="password" class="form-control" placeholder="Password">
         </div>
-        <div id="layoutBdload">
-            <img src="images/ajax-loader.gif" />
+        <div class="checkbox">
+            <label>
+                <input type="checkbox"> Remember me
+            </label>
         </div>
-
-    </div>
-
-    
-
-    <script type="text/javascript">
-    	
-    if(offlineFlag){
-    	 window.location.href = "content.html";
-    }
-    
-
-    $("#forget").click(function(event) {
-        if($("#user").val()==""){
-            alert("Please enter your user name and we will send you a password reset email.");
-        }else{
-            $("#layoutBg").fadeIn(300, function() {
-                $("#layoutBdload").fadeIn(500, function() {
-
-                });
-            })  
-            var promise = Kinvey.User.resetPassword($("#user").val(),{
-                success:function(data){
-                    $("#layoutBdload").fadeOut(300, function() {
-                        $("#layoutBd").fadeIn(200, function() {
-
-                        });
-                    });
-                        
-                }
-            })
-        }
-        
-    });
-
-    $("#closed,#ok").click(function(event) {
-       $("#layoutBd").fadeOut(500, function() {
-            $("#layoutBg").fadeOut(200, function() {
-
-            });    
-        });
-    });
-
-
-    </script>
-
+        <div class="form-group">
+            <a href="#">Forgot Password?</a>
+        </div>
+        <button type="submit" class="btn btn-default btn-lg btn-block" style="background: #31a048;color: #ffffff;">
+            Login
+        </button>
+        <p style="padding: 30px;" class="text-center">
+            <a href="#">Create an account</a>
+        </p>
+    </form>
+</div>
 </body>
 </html>
