@@ -147,7 +147,7 @@ angular.module('Schneider',
 .controller('HomeCtrl', ($scope, $kinvey, global, storage, $rootScope, $state)->
   $rootScope.title = 'home'
   $state.go 'main.login' if !$rootScope.login
-  $kinvey.DataStore.find('Control', null, {offline: true, fallback: false}).then (data)->
+  $kinvey.DataStore.find('Control', null).then (data)->
     industryOptions = _.uniq(d.industry for d in data)
     $scope.industryOptions = []
     $scope.industryOptions.push {name: i, code: i} for i in industryOptions

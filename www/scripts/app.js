@@ -164,10 +164,7 @@ angular.module('Schneider', ['debug', 'ui.router', 'ngTouch', 'kinvey', 'angular
   if (!$rootScope.login) {
     $state.go('main.login');
   }
-  $kinvey.DataStore.find('Control', null, {
-    offline: true,
-    fallback: false
-  }).then(function(data) {
+  $kinvey.DataStore.find('Control', null).then(function(data) {
     var d, i, industryOptions, offerOptions, _i, _j, _len, _len1;
     industryOptions = _.uniq((function() {
       var _i, _len, _results;
