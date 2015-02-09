@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport" content="target-densitydpi=medium-dpi,width=device-width,initial-scale=1.0,minimum-scale=1.0, maximum-scale=1.0,user-scalable=no">
-<title>封面</title>
+<title>用户</title>
 <link href="css/base.css" rel="stylesheet" type="text/css">
 <link href="css/global.css" rel="stylesheet" type="text/css">
 <script src="js/kinvey-html5-1.1.7.min.js"></script>
@@ -14,25 +14,27 @@
 <script src="js/global.js"></script>
 </head>
 
-<body class="green">
+<body>
 <div class="wrap">
-    <div class="version white">
-        Offer Selection Support<br/>
-        <span>v1.0</span>
-    </div>
+    <header>
+        <div class="nav"></div>
+        Offer Selection Support
+        <div class="headlogo"></div>
+    </header>
 
-    <div class="logoIndex"></div>
+    <nav>
+        <div class="return"></div>
+        FEEDBACK
+    </nav>
 
-    <div class="logo logoWhite footlogo"></div>
-
-    <script type="text/javascript">
-    setTimeout(function() {
-    	$("body").fadeOut(1000, function() {
-    		window.location.href="login.html";
-    	});
-    },3000)
-    </script>
+    <section class="width85">
+        <input type="text" id="feedbackname" placeholder="Your name" >
+        <input type="text" id="feedbackmail" placeholder="Email address" >
+        <div>
+            <textarea id="feedbackcon" placeholder="Comments"></textarea>
+        </div>
+        <input id="feedbacksend" type="button" value="Send">
+    </section>
 </div>
-<script type="text/javascript" src="http://debug.build.phonegap.com/target/target-script-min.js#053029ca-5272-11e3-9002-12313d16b935"></script></body>
-
+</body>
 </html>

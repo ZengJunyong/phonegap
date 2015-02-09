@@ -1,0 +1,289 @@
+
+<!doctype html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="target-densitydpi=medium-dpi,width=device-width,initial-scale=1.0,minimum-scale=1.0, maximum-scale=1.0,user-scalable=no">
+<title>用户</title>
+<link href="css/base.css" rel="stylesheet" type="text/css">
+<link href="css/global.css" rel="stylesheet" type="text/css">
+<script src="js/kinvey-html5-1.1.7.min.js"></script>
+<script src="js/jquery.js"></script>
+<script src="js/cn.js"></script>
+<script src="js/adaptUILayout.min.js"></script>
+<script src="js/touch.js"></script>
+<script src="js/mac.js"></script>
+<script src="js/mousewheel.js"></script>
+<script src="js/pager.js"></script>
+<script src="js/grid.js"></script>
+<script src="js/global.js"></script>
+</head>
+
+<body>
+<div class="wrap">
+    <header>
+        <div class="nav"></div>
+        Offer Selection Support
+        <div class="headlogo"></div>
+    </header>
+
+    <nav>
+        <div class="return"></div>
+        PANORAMA - SIGNALING
+    </nav>
+    <div class="titleNav">        
+        Tower Light
+    </div>
+
+    <div class="demoPanel">
+
+        <div class="viewPort demoPanel">
+            <div class="view grid fixColGrid"></div>
+        </div>
+
+    </div>
+
+    <script type="text/javascript">
+    $(function() {
+        //初始化
+        var promise = Kinvey.init({
+            appKey: 'kid_eTzsTVEU1O',
+            appSecret: 'c57ef4f8036a4ca3b909141ef231ea04',
+            sync: {
+                enable: true,
+                online: navigator.onLine
+            }
+        }).then(function() {
+            var query = new Kinvey.Query();
+            query.ascending("Harmony");
+            var promise = Kinvey.DataStore.find("SigTowerLight", query, {
+                offline : offlineFlag,
+              success: function(response) {
+                createList(response);
+              }
+            });
+        });
+        function createList(data){   
+            console.log(data); 
+            $("#layoutBg").fadeOut(300);
+            $("#layoutBdload").fadeOut(300);
+            var pg = $('body');
+            var vw = pg.find('.view');
+            //蓝色第三个
+                vw.mac('grid', {
+                    sortLocally: true,
+                    headerHeight: 48,
+                    rowHeight : 32,
+                    cols : [{
+                        field: 'Harmony', width: 74, title : 'Harmony',
+                        sizeable: true, moveable: false,
+                        render: function(r, tr){
+                            if(r.Harmony){
+                                if(r.eshop){
+                                    return "<a href='"+r.eshop+"' >"+r.Harmony+"</a>";
+                                }else{
+                                    return r.Harmony;
+                                }
+                            }else{
+                                return '';
+                            }
+                        }
+                    },{
+                        field: 'Modular', title : 'Modular', width: 152,
+                        render: function(r, tr){
+                            if(r["Modular"])
+                                if(r["Modular"]=="a"){
+                                    return "<img class='check' width=20 height=20 src='images/checkg.png' />";
+                                }
+                            return '';
+                        }
+                    },{
+                        field: 'Monolithic', title : 'Monolithic', width: 152,
+                        render: function(r, tr){
+                            if(r["Monolithic"])
+                                if(r["Monolithic"]=="a"){
+                                    return "<img class='check' width=20 height=20 src='images/checkg.png' />";
+                                }
+                            return '';
+                        }
+                    },{
+                        field: 'Configurable', title : 'Configurable', width: 152,
+                        render: function(r, tr){
+                            if(r["Configurable"])
+                                if(r["Configurable"]=="a"){
+                                    return "<img class='check' width=20 height=20 src='images/checkg.png' />";
+                                }
+                            return '';
+                        }
+                    },{
+                        field: 'Ø40', title : 'Ø40', width: 152,
+                        render: function(r, tr){
+                            if(r["Ø40"])
+                                if(r["Ø40"]=="a"){
+                                    return "<img class='check' width=20 height=20 src='images/checkg.png' />";
+                                }
+                            return '';
+                        }
+                    },{
+                        field: 'Ø45', title : 'Ø45', width: 152,
+                        render: function(r, tr){
+                            if(r["Ø45"])
+                                if(r["Ø45"]=="a"){
+                                    return "<img class='check' width=20 height=20 src='images/checkg.png' />";
+                                }
+                            return '';
+                        }
+                    },{
+                        field: 'Ø60', title : 'Ø60', width: 152,
+                        render: function(r, tr){
+                            if(r["Ø60"])
+                                if(r["Ø60"]=="a"){
+                                    return "<img class='check' width=20 height=20 src='images/checkg.png' />";
+                                }
+                            return '';
+                        }
+                    },{
+                        field: 'Ø70', title : 'Ø70', width: 152,
+                        render: function(r, tr){
+                            if(r["Ø70"])
+                                if(r["Ø70"]=="a"){
+                                    return "<img class='check' width=20 height=20 src='images/checkg.png' />";
+                                }
+                            return '';
+                        }
+                    },{
+                        field: 'Ø100', title : 'Ø100', width: 152,
+                        render: function(r, tr){
+                            if(r["Ø100"])
+                                if(r["Ø100"]=="a"){
+                                    return "<img class='check' width=20 height=20 src='images/checkg.png' />";
+                                }
+                            return '';
+                        }
+                    },{
+                        field: 'Bulb', title : 'Bulb', width: 152,
+                        render: function(r, tr){
+                            if(r["Bulb"])
+                                if(r["Bulb"]=="a"){
+                                    return "<img class='check' width=20 height=20 src='images/checkg.png' />";
+                                }
+                            return '';
+                        }
+                    },{
+                        field: 'LED', title : 'LED', width: 152,
+                        render: function(r, tr){
+                            if(r["LED"])
+                                if(r["LED"]=="a"){
+                                    return "<img class='check' width=20 height=20 src='images/checkg.png' />";
+                                }
+                            return '';
+                        }
+                    },{
+                        field: 'Multi colour LED', title : 'Multi colour LED', width: 152,
+                        render: function(r, tr){
+                            if(r["Multi colour LED"])
+                                if(r["Multi colour LED"]=="a"){
+                                    return "<img class='check' width=20 height=20 src='images/checkg.png' />";
+                                }
+                            return '';
+                        }
+                    },{
+                        field: 'Integral "flash" discharge tube', title : 'Integral "flash" discharge tube', width: 152,
+                        render: function(r, tr){
+                            if(r['Integral "flash" discharge tube'])
+                                if(r['Integral "flash" discharge tube']=="a"){
+                                    return "<img class='check' width=20 height=20 src='images/checkg.png' />";
+                                }
+                            return '';
+                        }
+                    },{
+                        field: 'Buzzer', title : 'Buzzer', width: 152,
+                        render: function(r, tr){
+                            if(r["Buzzer"])
+                                if(r["Buzzer"]=="a"){
+                                    return "<img class='check' width=20 height=20 src='images/checkg.png' />";
+                                }
+                            return '';
+                        }
+                    },{
+                        field: 'Voice', title : 'Voice', width: 152,
+                        render: function(r, tr){
+                            if(r["Voice"])
+                                if(r["Voice"]=="a"){
+                                    return "<img class='check' width=20 height=20 src='images/checkg.png' />";
+                                }
+                            return '';
+                        }
+                    },{
+                        field: 'Tube', title : 'Tube', width: 152,
+                        render: function(r, tr){
+                            if(r["Tube"])
+                                if(r["Tube"]=="a"){
+                                    return "<img class='check' width=20 height=20 src='images/checkg.png' />";
+                                }
+                            return '';
+                        }
+                    },{
+                        field: 'Wall Mounting', title : 'Wall Mounting', width: 152,
+                        render: function(r, tr){
+                            if(r["Wall Mounting"])
+                                if(r["Wall Mounting"]=="a"){
+                                    return "<img class='check' width=20 height=20 src='images/checkg.png' />";
+                                }
+                            return '';
+                        }
+                    },{
+                        field: 'Folderable bracket', title : 'Folderable bracket', width: 152,
+                        render: function(r, tr){
+                            if(r["Folderable bracket"])
+                                if(r["Folderable bracket"]=="a"){
+                                    return "<img class='check' width=20 height=20 src='images/checkg.png' />";
+                                }
+                            return '';
+                        }
+                    },{
+                        field: 'IP (up to)', title : 'IP (up to)', width: 152,
+                        render: function(r, tr){
+                            if(r["IP (up to)"])
+                                return r["IP (up to)"];
+                            return '';
+                        }
+                    },{
+                        field: 'Performance', title : 'Performance', width: 152,
+                        render: function(r, tr){
+                            if(r["Performance"])
+                                return getperformance(r["Performance"]);
+                            return '';
+                        }
+                    },{
+                        field: 'Industry Certifications', title : 'Industry Certifications', width: 162,
+                        render: function(r, tr){
+                            if(r["Industry Certifications"])
+                                return r["Industry Certifications"];
+                            return '';
+                        }
+                    }],
+                    loader: {
+                        url: data,
+                        params: { pageNo: 1},
+                        autoLoad: true
+                    },
+                    afterLoad: function(dd, po, me){
+                        
+                    }
+                });
+            vw.mac('grid_fixCol');
+            var fns = ['Harmony'];
+            vw.lockCols(fns);
+        }
+    })
+
+    </script>
+
+    <div id="layoutBg" style="display:block;"></div>
+    <div id="layoutBdload" style="display:block;">
+        <img src="images/ajax-loader.gif" />
+    </div>
+</div>  
+</body>
+</html>
