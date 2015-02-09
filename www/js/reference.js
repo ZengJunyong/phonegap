@@ -4,41 +4,41 @@ $(function(argument) {
 	var k = getUrlParam("k");
 	var qtype = getUrlParam("type");
 
-	//初始化
-	var promise = Kinvey.init({
-		appKey: 'kid_eTzsTVEU1O',
-		appSecret: 'c57ef4f8036a4ca3b909141ef231ea04',
-		sync: {
-			enable: true,
-			online: navigator.onLine
-		}
-	}).then(function() {
-		var query = new Kinvey.Query();
-		//query.matches('Part Number', eval("'^" + k.toUpperCase() + "'"));
-		query.equalTo('Part Number', k.toUpperCase());
-		var tale_name;
-		var _type = getUrlParam("stype");
-		var qtype;
-		if (_type == "control") {
-			tale_name = "ControlSos";
-			qtype = "CONTROL";
-		} else if (_type == "relays") {
-			tale_name = "RelaysSos";
-			qtype = "RELAYS";
-		} else if (_type == "signaling") {
-			tale_name = "SignalingSos";
-			qtype = "SIGNALING";
-		} else if (_type == "hmi") {
-			tale_name = "HMISos";
-			qtype = "HMI";
-		}
 
-    if(Kinvey.Sync.isOnline()){
+  var query = new Kinvey.Query();
+  //query.matches('Part Number', eval("'^" + k.toUpperCase() + "'"));
+  query.equalTo('Part Number', k.toUpperCase());
+  var tale_name;
+  var _type = getUrlParam("stype");
+  var qtype;
+  if (_type == "control") {
+    tale_name = "ControlSos";
+    qtype = "CONTROL";
+  } else if (_type == "relays") {
+    tale_name = "RelaysSos";
+    qtype = "RELAYS";
+  } else if (_type == "signaling") {
+    tale_name = "SignalingSos";
+    qtype = "SIGNALING";
+  } else if (_type == "hmi") {
+    tale_name = "HMISos";
+    qtype = "HMI";
+  }
+
+  if(Kinvey.Sync.isOnline()){
+    //初始化
+    var promise = Kinvey.init({
+      appKey: 'kid_eTzsTVEU1O',
+      appSecret: 'c57ef4f8036a4ca3b909141ef231ea04',
+      sync: {
+        enable: true,
+        online: navigator.onLine
+      }
+    }).then(function() {
       var promise = Kinvey.DataStore.find(tale_name, query, {
         success: function(response) {
           if (response.length != 0) {
             createResult(response);
-
           }else{
             $(".titleNav").html("Result - \"no result\"");
             $("#layoutBg").fadeOut(300);
@@ -46,25 +46,22 @@ $(function(argument) {
           }
         }
       });
-    }else{
-      var promise = Kinvey.DataStore.find(tale_name, query, {
-        offline: true,
-        fallback:false,
-        success: function(response) {
-          if (response.length != 0) {
-            createResult(response);
-
-          }else{
-            $(".titleNav").html("Result - \"no result\"");
-            $("#layoutBg").fadeOut(300);
-            $("#layoutBdload").fadeOut(300);
-          }
+    });
+  }else{
+    var promise = Kinvey.DataStore.find(tale_name, query, {
+      offline: true,
+      fallback:false,
+      success: function(response) {
+        if (response.length != 0) {
+          createResult(response);
+        }else{
+          $(".titleNav").html("Result - \"no result\"");
+          $("#layoutBg").fadeOut(300);
+          $("#layoutBdload").fadeOut(300);
         }
-      });
-    }
-
-
-	});
+      }
+    });
+  }
 
 
 
