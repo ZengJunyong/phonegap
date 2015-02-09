@@ -1,13 +1,13 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="com.phonegap.helloworld" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
-  <name>Sndapp3</name>
+  <name>Sndapp4</name>
   <description>
-    Sndapp3
+    Sndapp4
   </description>
   <author email="support@phonegap.com" href="http://phonegap.com">
     Sndapp2
   </author>
-  <content src="index.html" />
+  <content src="www/index.html" />
   <preference name="permissions" value="none" />
   <preference name="phonegap-version" value="3.5.0" />
   <preference name="orientation" value="default" />
