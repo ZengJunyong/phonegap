@@ -37,16 +37,16 @@ function createTime() {
 $(function() {
 
 
-    $(window).on({
-        offline: Kinvey.Sync.offline,
-        online: function() {
-            // Some browsers fire the online event before the connection is available
-            // again, so set a timeout here.
-            setTimeout(function() {
-                Kinvey.Sync.online();
-            }, 10000);
-        }
-    });
+    //$(window).on({
+    //    offline: Kinvey.Sync.offline,
+    //    online: function() {
+    //        // Some browsers fire the online event before the connection is available
+    //        // again, so set a timeout here.
+    //        setTimeout(function() {
+    //            Kinvey.Sync.online();
+    //        }, 10000);
+    //    }
+    //});
 
     var method = Kinvey.Sync.isOnline();
 
@@ -58,66 +58,67 @@ $(function() {
 
 
     //初始化
-    var promise = Kinvey.init({
-        appKey: 'kid_eTzsTVEU1O',
-        appSecret: 'c57ef4f8036a4ca3b909141ef231ea04',
-        sync: {
-            enable: true,
-            online: navigator.onLine
-        }
-    }).then(function() {
+    //var promise = Kinvey.init({
+    //    appKey: 'kid_eTzsTVEU1O',
+    //    appSecret: 'c57ef4f8036a4ca3b909141ef231ea04',
+    //    sync: {
+    //        enable: true,
+    //        online: navigator.onLine
+    //    }
+    //}).then(function() {
+    //
+    //    /*user用户信息*/
+    //    var user = Kinvey.getActiveUser();
+    //    localStorage.setItem("usernamemsg", user.username);
+    //    localStorage.setItem("mailmsg", user.email);
+    //    if (localStorage.usernamemsg) {
+    //        $("#usernamemsg").html(localStorage.usernamemsg);
+    //        $("#mailmsg").html(localStorage.mailmsg);
+    //        $("#feedbackname").val(localStorage.usernamemsg);
+    //        $("#feedbackmail").val(localStorage.mailmsg);
+    //
+    //    } else {
+    //        $("#usernamemsg").html(user.username);
+    //        $("#mailmsg").html(user.email);
+    //        $("#feedbackname").val(user.usernamemsg);
+    //        $("#feedbackmail").val(user.mailmsg);
+    //    }
+    //
+    //
+    //    if (loch.indexOf("login") != -1) {
+    //        //在登陆页面判断用户是否已经登陆
+    //        if (user.username) {
+    //            window.location.href = "content.html";
+    //        }
+    //    }
+    //
+    //    /*重置密码*/
+    //    $("#resetPwd").click(function(event) {
+    //        var promise = Kinvey.User.resetPassword(user.username, {
+    //            success: function() {
+    //                var user = Kinvey.getActiveUser();
+    //                alert("Your password reset email has been sent to " + user.email + ". Please follow the instructions to reset your password.");
+    //            }
+    //        });
+    //    });
+    //
+    //
+    //
+    //});
 
-        /*user用户信息*/
-        var user = Kinvey.getActiveUser();
-        localStorage.setItem("usernamemsg", user.username);
-        localStorage.setItem("mailmsg", user.email);
-        if (localStorage.usernamemsg) {
-            $("#usernamemsg").html(localStorage.usernamemsg);
-            $("#mailmsg").html(localStorage.mailmsg);
-            $("#feedbackname").val(localStorage.usernamemsg);
-            $("#feedbackmail").val(localStorage.mailmsg);
+  //搜索按钮点击
+  $("#searchBtn").click(function(event) {
+    var qkeywords = $("#searchtxt").val();
+    if (qkeywords == "") {
+      alert("关键字不能为空");
+      return false;
+    }
+    var _type = $("#mainCheck li.active p").text().toLowerCase();
+    $("#layoutBg").css("display", "block");
+    $("#layoutBdload").css("display", "block");
 
-        } else {
-            $("#usernamemsg").html(user.username);
-            $("#mailmsg").html(user.email);
-            $("#feedbackname").val(user.usernamemsg);
-            $("#feedbackmail").val(user.mailmsg);
-        }
-
-
-        if (loch.indexOf("login") != -1) {
-            //在登陆页面判断用户是否已经登陆
-            if (user.username) {
-                window.location.href = "content.html";
-            }
-        }
-
-        /*重置密码*/
-        $("#resetPwd").click(function(event) {
-            var promise = Kinvey.User.resetPassword(user.username, {
-                success: function() {
-                    var user = Kinvey.getActiveUser();
-                    alert("Your password reset email has been sent to " + user.email + ". Please follow the instructions to reset your password.");
-                }
-            });
-        });
-
-        //搜索按钮点击
-        $("#searchBtn").click(function(event) {
-            var qkeywords = $("#searchtxt").val();
-            if (qkeywords == "") {
-                alert("关键字不能为空");
-                return false;
-            }
-            var _type = $("#mainCheck li.active p").text().toLowerCase();
-            $("#layoutBg").css("display", "block");
-            $("#layoutBdload").css("display", "block");
-
-            window.location.href = "list-refrence.html?k=" + qkeywords + "&type=" + _type + "&stype=" + _type + "";
-        });
-
-    });
-
+    window.location.href = "list-refrence.html?k=" + qkeywords + "&type=" + _type + "&stype=" + _type + "";
+  });
 
     //登陆
     var doc = $(document);
