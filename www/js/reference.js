@@ -24,7 +24,8 @@ $(function(argument) {
 
   //if(Kinvey.Sync.isOnline()){
     //初始化
-  if(Kinvey.Sync.isOnline()){
+  //if(Kinvey.Sync.isOnline()){
+  if(false){
     var promise = Kinvey.init({
       appKey: 'kid_eTzsTVEU1O',
       appSecret: 'c57ef4f8036a4ca3b909141ef231ea04',
