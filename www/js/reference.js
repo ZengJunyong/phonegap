@@ -63,6 +63,10 @@ $(function(argument) {
     });
   }
 
+  setInterval(function () {
+    alert(Kinvey.Sync.isOnline());
+  },30000);
+
 	$(".titleNav").html("Result - \"" + k + "\"");
 	$("nav").empty().html('<div class="return"></div>CROSS REFERENCE - ' + qtype.toUpperCase() + '');
 	$(".return").click(function(event) {
