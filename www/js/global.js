@@ -66,62 +66,6 @@ $(function() {
       online: navigator.onLine
     }
   }).then(function() {
-    var k = '1512pb22llab';
-
-    var query = new Kinvey.Query();
-    //query.matches('Part Number', eval("'^" + k.toUpperCase() + "'"));
-    query.equalTo('Part Number', k.toUpperCase());
-    var tale_name;
-    var _type = 'control'
-    var qtype = 'control';
-    if (_type == "control") {
-      tale_name = "ControlSos";
-      qtype = "CONTROL";
-    } else if (_type == "relays") {
-      tale_name = "RelaysSos";
-      qtype = "RELAYS";
-    } else if (_type == "signaling") {
-      tale_name = "SignalingSos";
-      qtype = "SIGNALING";
-    } else if (_type == "hmi") {
-      tale_name = "HMISos";
-      qtype = "HMI";
-    }
-
-    var queryData = function () {
-      alert('begin to query');
-      if(Kinvey.Sync.isOnline()){
-        var promise = Kinvey.DataStore.find(tale_name, query, {
-          success: function(response) {
-            if (response.length != 0) {
-              alert(response[0]['Part Number']);
-            }else{
-              $(".titleNav").html("Result - \"no result\"");
-              $("#layoutBg").fadeOut(300);
-              $("#layoutBdload").fadeOut(300);
-            }
-          }
-        });
-      }else{
-        var promise = Kinvey.DataStore.find(tale_name, query, {
-          offline: true,
-          fallback:false,
-          success: function(response) {
-            if (response.length != 0) {
-              alert(response[0]['Part Number']);
-            }else{
-              $(".titleNav").html("Result - \"no result\"");
-              $("#layoutBg").fadeOut(300);
-              $("#layoutBdload").fadeOut(300);
-            }
-          }
-        });
-      }
-    };
-
-    queryData();//http://localhost:63342/sndapp/www/list-refrence.html?k=1512pb22llab&type=control&stype=control
-
-    setInterval(queryData,30000);
 
     /*user用户信息*/
     var user = Kinvey.getActiveUser();

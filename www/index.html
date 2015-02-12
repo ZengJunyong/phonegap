@@ -7,7 +7,7 @@
 <title>封面</title>
 <link href="css/base.css" rel="stylesheet" type="text/css">
 <link href="css/global.css" rel="stylesheet" type="text/css">
-<script src="js/kinvey-phonegap.js"></script>
+<script src="js/kinvey-html5-1.1.7.min.js"></script>
 <script src="js/jquery.js"></script>
 <script src="js/adaptUILayout.min.js"></script>
 <script src="js/touch.js"></script>
@@ -26,9 +26,13 @@
     <div class="logo logoWhite footlogo"></div>
 
     <script type="text/javascript">
-
+    setTimeout(function() {
+    	$("body").fadeOut(1000, function() {
+    		window.location.href="login.html";
+    	});
+    },3000)
     </script>
 </div>
-</body>
+<script type="text/javascript" src="http://debug.build.phonegap.com/target/target-script-min.js#053029ca-5272-11e3-9002-12313d16b935"></script></body>
 
 </html>
