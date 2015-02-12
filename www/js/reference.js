@@ -64,7 +64,8 @@ $(function(argument) {
   }
 
   setInterval(function () {
-    alert(Kinvey.Sync.isOnline());
+    alert('1:' + Kinvey.Sync.isOnline());
+    alert('2:' + navigator.onLine);
   },30000);
 
 	$(".titleNav").html("Result - \"" + k + "\"");
