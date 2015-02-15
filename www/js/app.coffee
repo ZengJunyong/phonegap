@@ -1,11 +1,11 @@
-angular.module("myApp", [
-  "ngRoute"
-  "myApp.contacts"
-  "myApp.view2"
+angular.module('myApp', [
+  'ngRoute'
+  'myApp.contacts'
+  'myApp.events'
 ]).config [
-  "$routeProvider"
+  '$routeProvider'
   ($routeProvider) ->
-    $routeProvider.otherwise redirectTo: "/contacts"
+    $routeProvider.otherwise redirectTo: '/contacts'
 ]
 
 document.addEventListener 'deviceready',
