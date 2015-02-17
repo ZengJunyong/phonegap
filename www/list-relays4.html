@@ -1,0 +1,257 @@
+
+<!doctype html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="target-densitydpi=medium-dpi,width=device-width,initial-scale=1.0,minimum-scale=1.0, maximum-scale=1.0,user-scalable=no">
+<title>用户</title>
+<link href="css/base.css" rel="stylesheet" type="text/css">
+<link href="css/global.css" rel="stylesheet" type="text/css">
+<script src="js/kinvey-html5-1.1.7.min.js"></script>
+<script src="js/jquery.js"></script>
+<script src="js/cn.js"></script>
+<script src="js/adaptUILayout.min.js"></script>
+<script src="js/touch.js"></script>
+<script src="js/mac.js"></script>
+<script src="js/mousewheel.js"></script>
+<script src="js/pager.js"></script>
+<script src="js/grid.js"></script>
+<script src="js/global.js"></script>
+</head>
+
+<body>
+<div class="wrap">
+    <header>
+        <div class="nav"></div>
+        Offer Selection Support
+        <div class="headlogo"></div>
+    </header>
+
+    <nav>
+        <div class="return"></div>
+        PANORAMA - RELAYS
+    </nav>
+    <div class="titleNav">        
+        Counters
+    </div>
+
+    <div class="demoPanel">
+
+        <div class="viewPort demoPanel">
+            <div class="view grid fixColGrid"></div>
+        </div>
+
+    </div>
+
+    <script type="text/javascript">
+    $(function() {
+        //初始化
+        var promise = Kinvey.init({
+            appKey: 'kid_eTzsTVEU1O',
+            appSecret: 'c57ef4f8036a4ca3b909141ef231ea04',
+            sync: {
+                enable: true,
+                online: navigator.onLine
+            }
+        }).then(function() {
+            var query = new Kinvey.Query();
+            query.ascending("Harmony");
+            var promise = Kinvey.DataStore.find("ElrCounter", query, {
+                offline : offlineFlag,
+              success: function(response) {
+                createList(response);
+              }
+            });
+        });
+        function createList(data){  
+            $("#layoutBg").fadeOut(300);
+            $("#layoutBdload").fadeOut(300);
+            var pg = $('body');
+            var vw = pg.find('.view');
+            //蓝色第三个
+                vw.mac('grid', {
+                    sortLocally: true,
+                    headerHeight: 48,
+                    rowHeight : 32,
+                    cols : [{
+                        field: 'Zelio', width: 74, title : 'Zelio',
+                        sizeable: true, moveable: false,
+                        render: function(r, tr){
+                            if(r.Zelio){
+                                if(r.eshop){
+                                    return "<a href='"+r.eshop+"'>"+r.Zelio+"</a>";
+                                }else{
+                                    return r.Zelio;
+                                }
+                            }else{
+                                return '';
+                            }
+                        }
+                    },{
+                        field: 'Totalising counters', title : 'Totalising counters', width: 152,
+                        render: function(r, tr){
+                            if(r["Totalising counters"])
+                                if(r["Totalising counters"]=="n"){
+                                    return "<img class='check' width=20 height=20 src='images/checkg.png' />";
+                                }
+                            return '';
+                        }
+                    },{
+                        field: 'Preselection counters', title : 'Preselection counters', width: 142,
+                        render: function(r, tr){
+                            if(r["Preselection counters"])
+                                if(r["Preselection counters"]=="n"){
+                                    return "<img class='check' width=20 height=20 src='images/checkg.png' />";
+                                }
+                            return '';
+                        }
+                    },{
+                        field: 'Hours counters', title : 'Hours counters', width: 142,
+                        render: function(r, tr){
+                            if(r["Hours counters"])
+                                if(r["Hours counters"]=="n"){
+                                    return "<img class='check' width=20 height=20 src='images/checkg.png' />";
+                                }
+                            return '';
+                        }
+                    },{
+                        field: 'Multifunction', title : 'Multifunction', width: 142,
+                        render: function(r, tr){
+                            if(r["Multifunction"])
+                                if(r["Multifunction"]=="n"){
+                                    return "<img class='check' width=20 height=20 src='images/checkg.png' />";
+                                }
+                            return '';
+                        }
+                    },{
+                        field: 'Number', title : 'Number', width: 52,
+                        render: function(r, tr){
+                            if(r["Number"])
+                                return r["Number"];
+                            return '';
+                        }
+                    },{
+                        field: 'Dimension (h*w) in mm', title : 'Dimension (h*w) in mm', width: 52,
+                        render: function(r, tr){
+                            if(r["Dimension (h*w) in mm"])
+                                return r["Dimension (h*w) in mm"];
+                            return '';
+                        }
+                    },{
+                        field: 'Maximum (Hz)', title : 'Maximum (Hz)', width: 52,
+                        render: function(r, tr){
+                            if(r["Maximum (Hz)"])
+                                return r["Maximum (Hz)"];
+                            return '';
+                        }
+                    },{
+                        field: 'Without', title : 'Without', width: 52,
+                        render: function(r, tr){
+                            if(r["Without"])
+                                if(r["Without"]=="n"){
+                                    return "<img class='check' width=20 height=20 src='images/checkg.png' />";
+                                }
+                            return '';
+                        }
+                    },{
+                        field: 'Manual', title : 'Manual', width: 52,
+                        render: function(r, tr){
+                            if(r["Manual"])
+                                if(r["Manual"]=="n"){
+                                    return "<img class='check' width=20 height=20 src='images/checkg.png' />";
+                                }
+                            return '';
+                        }
+                    },{
+                        field: 'Transistor', title : 'Transistor', width: 52,
+                        render: function(r, tr){
+                            if(r["Transistor"])
+                                if(r["Transistor"]=="n"){
+                                    return "<img class='check' width=20 height=20 src='images/checkg.png' />";
+                                }
+                            return '';
+                        }
+                    },{
+                        field: 'Electrical', title : 'Electrical', width: 52,
+                        render: function(r, tr){
+                            if(r["Electrical"])
+                                if(r["Electrical"]=="n"){
+                                    return "<img class='check' width=20 height=20 src='images/checkg.png' />";
+                                }
+                            return '';
+                        }
+                    },{
+                        field: 'automatic', title : 'automatic', width: 52,
+                        render: function(r, tr){
+                            if(r["automatic"])
+                                if(r["automatic"]=="n"){
+                                    return "<img class='check' width=20 height=20 src='images/checkg.png' />";
+                                }
+                            return '';
+                        }
+                    },{
+                        field: 'Mechanical', title : 'Mechanical', width: 82,
+                        render: function(r, tr){
+                            if(r["Mechanical"])
+                                return r["Mechanical"];
+                            return '';
+                        }
+                    },{
+                        field: 'VAC', title : 'VAC', width: 82,
+                        render: function(r, tr){
+                            if(r["VAC"])
+                                if(r["VAC"]=="n"){
+                                    return "<img class='check' width=20 height=20 src='images/checkg.png' />";
+                                }
+                            return '';
+                        }
+                    },{
+                        field: 'VAC/DC', title : 'VAC/DC', width: 82,
+                        render: function(r, tr){
+                            if(r["VAC/DC"])
+                                if(r["VAC/DC"]=="n"){
+                                    return "<img class='check' width=20 height=20 src='images/checkg.png' />";
+                                }
+                            return '';
+                        }
+                    },{
+                        field: 'Lithium Battery', title : 'Lithium Battery', width: 82,
+                        render: function(r, tr){
+                            if(r["Lithium Battery"])
+                                if(r["Lithium Battery"]=="n"){
+                                    return "<img class='check' width=20 height=20 src='images/checkg.png' />";
+                                }
+                            return '';
+                        }
+                    },{
+                        field: 'Industry Certification', title : 'Industry Certification', width: 162,
+                        render: function(r, tr){
+                            if(r["Industry Certification"])
+                                return r["Industry Certification"];
+                            return '';
+                        }
+                    }],
+                    loader: {
+                        url: data,
+                        params: { pageNo: 1},
+                        autoLoad: true
+                    },
+                    afterLoad: function(dd, po, me){
+                        
+                    }
+                });
+            vw.mac('grid_fixCol');
+            var fns = ['Zelio'];
+            vw.lockCols(fns);
+        }
+    })
+
+    </script>
+
+    <div id="layoutBg" style="display:block;"></div>
+    <div id="layoutBdload" style="display:block;">
+        <img src="images/ajax-loader.gif" />
+    </div>
+</div>  
+</body>
+</html>

@@ -1,0 +1,184 @@
+
+<!doctype html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="target-densitydpi=medium-dpi,width=device-width,initial-scale=1.0,minimum-scale=1.0, maximum-scale=1.0,user-scalable=no">
+<title>主页</title>
+<link href="css/base.css" rel="stylesheet" type="text/css">
+<link href="css/global.css" rel="stylesheet" type="text/css">
+<script src="js/kinvey-html5-1.1.7.min.js"></script>
+<script src="js/jquery.js"></script>
+<script src="js/adaptUILayout.min.js"></script>
+<script src="js/touch.js"></script>
+<script src="js/global.js"></script>
+<link rel="stylesheet" href="css/jquery-ui.css">
+<script src="js/jquery-ui.js"></script>
+</head>
+
+<body>
+<div class="wrap">
+    <header>
+        <div class="nav"></div>
+        Offer Selection Support
+        <div class="headlogo"></div>
+    </header>
+
+    <div class="bannermain">
+        <img src="images/bannermain.jpg" />
+    </div>
+
+    <section>
+        <article id="mainCheck">
+            <ul>
+                <li num="0" class="active">
+                    <div class="icon control"></div>
+                    <p>Control</p>
+                    <div class="arrow-left"></div>
+                </li>
+                <li num="1" >
+                    <div class="icon relays"></div>
+                    <p>Relays</p>
+                    <div class="arrow-left"></div>
+                </li>
+                <li num="2" >
+                    <div class="icon sign"></div>
+                    <p>Signaling</p>
+                    <div class="arrow-left"></div>
+                </li>
+                <li num="3" >
+                    <div class="icon hmi"></div>
+                    <p>HMI</p>
+                    <div class="arrow-left"></div>
+                </li>
+            </ul>
+        </article>
+        <div class="search">
+            <h4 class="grey"><i>Type in the competitor part no.</i></h4>
+            <div class="searchBg">
+                <input id="searchtxt" type="text" placeholder="Search" />
+                <div id="searchBtn" class="searchBtn"></div>
+            </div>
+
+        </div>
+    </section>
+
+    <footer>
+        <div id="panorama"><span class="panorama1"></span>Panorama</div>
+        <div class="active"><span class="reference1"></span>Cross Reference</div>
+    </footer>
+
+    <div id="layoutBg"></div>
+    <div id="layoutBdload">
+        <img src="images/ajax-loader.gif" />
+    </div>
+
+    <script type="text/javascript">
+        function count() {
+            var _h = $(window).height()- 94 -$(".bannermain").height();
+            //计算中间模块高度
+            $("article").height(_h);
+            $(".main").height(_h);
+        }
+        count();
+
+        $(function(){
+            //页面初始化
+            var temp = getUrlParam("c");
+            var $article = $("#mainCheck");
+            var $li = $article.find("li");
+            var $main = $(".main");
+            var $ul = $main.find('ul');
+            var _h = $(window).height()-94-120;
+            $main.height(_h);
+            if(temp=="control"){
+                $li.eq(0).addClass('active').siblings().removeClass('active');
+                $ul.eq(0).addClass('active').siblings().removeClass('active');
+            }else if(temp=="relays"){
+                $li.eq(1).addClass('active').siblings().removeClass('active');
+                $ul.eq(1).addClass('active').siblings().removeClass('active');
+            }else if(temp=="signaling"){
+                $li.eq(2).addClass('active').siblings().removeClass('active');
+                $ul.eq(2).addClass('active').siblings().removeClass('active');
+            }else if(temp=="hmi"){
+                $li.eq(3).addClass('active').siblings().removeClass('active');
+                $ul.eq(3).addClass('active').siblings().removeClass('active');
+            }
+
+            var tale_name = "";
+            if(temp=="control"){
+				tale_name = "ControlSos";
+			}else if(temp=="relays"){
+				tale_name = "RelaysSos";
+			}else if(temp=="signal"){
+				tale_name = "SignalingSos";
+			}else if(temp=="hmi"){
+				tale_name = "HMISos";
+			}
+
+            var cachename = "cache"+temp;
+			if(localStorage.getItem(cachename)){
+				//console.log(localStorage.getItem(tale_name));
+				$( "#searchtxt" ).autocomplete({
+					source: localStorage.getItem(cachename).split(",")
+				});
+			}else{
+
+				var queryinit = new Kinvey.Query();
+				queryinit.ascending('Part Number');
+				queryinit.fields([ 'Part Number','Brand']);
+				Kinvey.init({
+					appKey    : 'kid_eTzsTVEU1O',
+					appSecret : 'c57ef4f8036a4ca3b909141ef231ea04',
+				}).then(function() {
+
+					var promise = Kinvey.DataStore.find(tale_name, queryinit, {
+						//offline : true,
+						success: function(response) {
+							console.log(tale_name+"==>"+response.length);
+							if(response.length>0){
+								var tmpPartNumer = new Array();
+								response.forEach(function(item) {
+									tmpPartNumer[tmpPartNumer.length]=item["Part Number"].toLowerCase();
+									//brand[brand.length]=item["Brand"];
+								});
+								partNumer = distinctArray(tmpPartNumer);
+								//alert("2--"+partNumer.length);
+
+								//setCarr();
+								//console.log(partNumer);
+								//localStorage[tale_name] = partNumer;
+								//console.log(localStorage);
+								localStorage.setItem(cachename,partNumer);
+								$( "#searchtxt" ).autocomplete({
+									source: partNumer
+								});
+							}
+						}
+					});
+				});
+			}
+        });
+
+
+
+        $("#panorama").click(function(event) {
+            var _type = $("#mainCheck li.active p").text().toLowerCase();
+            window.location.href="main.html?c="+_type+"";
+        });
+
+
+		function distinctArray(arr){
+			var obj={},temp=[];
+			for(var i=0;i<arr.length;i++){
+				if(!obj[arr[i]]){
+					temp.push(arr[i]);
+					obj[arr[i]] =true;
+				}
+			}
+			return temp;
+		}
+    </script>
+</div>
+</body>
+</html>
