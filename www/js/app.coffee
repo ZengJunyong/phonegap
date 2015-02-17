@@ -29,7 +29,9 @@ document.addEventListener 'deviceready',
     document.addEventListener 'online', ->
       navigator.notification.alert 'online'
     , false
-    console.log navigator.connection.type
-    navigator.vibrate [3000]
+    setInterval ->
+      navigator.notification.alert navigator.connection.type # wifi, 2g, none
+    , 30000
+#    navigator.vibrate [3000]
     angular.bootstrap(document, ['myApp'])
 , false

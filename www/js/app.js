@@ -24,7 +24,8 @@ document.addEventListener('deviceready', function() {
   document.addEventListener('online', function() {
     return navigator.notification.alert('online');
   }, false);
-  console.log(navigator.connection.type);
-  navigator.vibrate([3000]);
+  setInterval(function() {
+    return navigator.notification.alert(navigator.connection.type);
+  }, 30000);
   return angular.bootstrap(document, ['myApp']);
 }, false);
