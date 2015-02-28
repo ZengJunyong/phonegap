@@ -4,8 +4,8 @@ document.addEventListener('deviceready', function() {
     var qtype = getUrlParam("type");
 
     var query = new Kinvey.Query();
-    //query.matches('Part Number', eval("'^" + k.toUpperCase() + "'"));
-    query.equalTo('Part Number', k.toUpperCase());
+    query.matches('Part Number', eval("'^" + k.toUpperCase() + "'"));
+    //query.equalTo('Part Number', k.toUpperCase());
     var tale_name;
     var _type = getUrlParam("stype");
     var qtype;
@@ -24,12 +24,27 @@ document.addEventListener('deviceready', function() {
     }
 
     var find = function (offline,fallback) {
-      var promise = Kinvey.DataStore.find(tale_name, query, {
+      var q = query;
+      if(offline){
+        q = null;
+      }
+      var promise = Kinvey.DataStore.find(tale_name, q, {
         offline: offline,
         fallback:fallback,
         success: function(response) {
           if (response.length != 0) {
-            createResult(response);
+            if(offline){
+              var result = [];
+              for(var i=0;i<response.length;i++){
+                var t = response[i];
+                if(t['Part Number'].indexOf(k.toUpperCase())!=-1){
+                  result.push(t);
+                }
+              }
+              createResult(result);
+            }else{
+              createResult(response);
+            }
           }else{
             $(".titleNav").html("Result - \"no result\"");
             $("#layoutBg").fadeOut(300);
