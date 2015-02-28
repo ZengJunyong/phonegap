@@ -7,6 +7,7 @@
 <title>用户</title>
 <link href="css/base.css" rel="stylesheet" type="text/css">
 <link href="css/global.css" rel="stylesheet" type="text/css">
+  <script type="text/javascript" src="cordova.js"></script>
 <script src="js/kinvey-html5-1.1.7.min.js"></script>
 <script src="js/jquery.js"></script>
 <script src="js/cn.js"></script>
@@ -31,7 +32,7 @@
         <div class="return"></div>
         PANORAMA - RELAYS
     </nav>
-    <div class="titleNav">        
+    <div class="titleNav">
         Temperature Controller
     </div>
 
@@ -44,252 +45,263 @@
     </div>
 
     <script type="text/javascript">
-    $(function() {
-        //初始化
-        var promise = Kinvey.init({
-            appKey: 'kid_eTzsTVEU1O',
-            appSecret: 'c57ef4f8036a4ca3b909141ef231ea04',
-            sync: {
-                enable: true,
-                online: navigator.onLine
-            }
-        }).then(function() {
+      document.addEventListener('deviceready', function() {
+        $(function() {
+          var find = function (offline,fallback) {
             var query = new Kinvey.Query();
             query.ascending("Harmony");
             var promise = Kinvey.DataStore.find("ElrTemperatureController", query, {
-                offline : offlineFlag,
+              offline: offline,
+              fallback:fallback,
               success: function(response) {
                 createList(response);
               }
             });
-        });
-        function createList(data){    
+          };
+          //初始化
+          if(navigator.connection.type!='none'){
+            var promise = Kinvey.init({
+              appKey: 'kid_eTzsTVEU1O',
+              appSecret: 'c57ef4f8036a4ca3b909141ef231ea04',
+              sync: {
+                enable: true,
+                online: navigator.onLine
+              }
+            }).then(function() {
+              find(false,true);
+            });
+          }else{
+            find(true,false);
+          }
+          function createList(data){
             $("#layoutBg").fadeOut(300);
             $("#layoutBdload").fadeOut(300);
             var pg = $('body');
             var vw = pg.find('.view');
             //蓝色第三个
-                vw.mac('grid', {
-                    sortLocally: true,
-                    headerHeight: 48,
-                    rowHeight : 32,
-                    cols : [{
-                        field: 'Zelio', width: 74, title : 'Zelio',
-                        sizeable: true, moveable: false,
-                        render: function(r, tr){
-                            if(r.Zelio){
-                                if(r.eshop){
-                                    return "<a href='"+r.eshop+"' >"+r.Zelio+"</a>";
-                                }else{
-                                    return r.Zelio;
-                                }
-                            }else{
-                                return '';
-                            }
-                        }
-                    },{
-                        field: '1/32 DIN 24*48mm', title : '1/32 DIN 24*48mm', width: 152,
-                        render: function(r, tr){
-                            if(r["1/32 DIN 24*48mm"])
-                                if(r["1/32 DIN 24*48mm"]=="n"){
-                                    return "<img class='check' width=20 height=20 src='images/checkg.png' />";
-                                }
-                            return '';
-                        }
-                    },{
-                        field: '1/16-DIN 48*48mm', title : '1/16-DIN 48*48mm', width: 142,
-                        render: function(r, tr){
-                            if(r["1/16-DIN 48*48mm"])
-                                if(r["1/16-DIN 48*48mm"]=="n"){
-                                    return "<img class='check' width=20 height=20 src='images/checkg.png' />";
-                                }
-                            return '';
-                        }
-                    },{
-                        field: '1/8-DIN 96*48mm', title : '1/8-DIN 96*48mm', width: 142,
-                        render: function(r, tr){
-                            if(r["1/8-DIN 96*48mm"])
-                                if(r["1/8-DIN 96*48mm"]=="n"){
-                                    return "<img class='check' width=20 height=20 src='images/checkg.png' />";
-                                }
-                            return '';
-                        }
-                    },{
-                        field: 'Input', title : 'Input', width: 52,
-                        render: function(r, tr){
-                            if(r["Input"])
-                                return r["Input"];
-                            return '';
-                        }
-                    },{
-                        field: 'Hysteresis ON/OFF', title : 'Hysteresis ON/OFF', width: 52,
-                        render: function(r, tr){
-                            if(r["Hysteresis ON/OFF"])
-                                if(r["Hysteresis ON/OFF"]=="n"){
-                                    return "<img class='check' width=20 height=20 src='images/checkg.png' />";
-                                }
-                            return '';
-                        }
-                    },{
-                        field: 'PID', title : 'PID', width: 52,
-                        render: function(r, tr){
-                            if(r["PID"])
-                                if(r["PID"]=="n"){
-                                    return "<img class='check' width=20 height=20 src='images/checkg.png' />";
-                                }
-                            return '';
-                        }
-                    },{
-                        field: 'PID2', title : 'PID2', width: 52,
-                        render: function(r, tr){
-                            if(r["PID2"])
-                                if(r["PID2"]=="n"){
-                                    return "<img class='check' width=20 height=20 src='images/checkg.png' />";
-                                }
-                            return '';
-                        }
-                    },{
-                        field: 'Fuzzy logic', title : 'Fuzzy logic', width: 52,
-                        render: function(r, tr){
-                            if(r["Fuzzy logic"])
-                                if(r["Fuzzy logic"]=="n"){
-                                    return "<img class='check' width=20 height=20 src='images/checkg.png' />";
-                                }
-                            return '';
-                        }
-                    },{
-                        field: 'Auto-tuning', title : 'Auto-tuning', width: 52,
-                        render: function(r, tr){
-                            if(r["Auto-tuning"])
-                                if(r["Auto-tuning"]=="n"){
-                                    return "<img class='check' width=20 height=20 src='images/checkg.png' />";
-                                }
-                            return '';
-                        }
-                    },{
-                        field: 'Ramps', title : 'Ramps', width: 82,
-                        render: function(r, tr){
-                            if(r["Ramps"])
-                                return r["Ramps"];
-                            return '';
-                        }
-                    },{
-                        field: '1 Relay', title : '1 Relay', width: 82,
-                        render: function(r, tr){
-                            if(r["1 Relay"])
-                                if(r["1 Relay"]=="n"){
-                                    return "<img class='check' width=20 height=20 src='images/checkg.png' />";
-                                }
-                            return '';
-                        }
-                    },{
-                        field: '2 Relay', title : '2 Relay', width: 82,
-                        render: function(r, tr){
-                            if(r["2 Relay"])
-                                if(r["2 Relay"]=="n"){
-                                    return "<img class='check' width=20 height=20 src='images/checkg.png' />";
-                                }
-                            return '';
-                        }
-                    },{
-                        field: '1 SSR', title : '1 SSR', width: 82,
-                        render: function(r, tr){
-                            if(r["1 SSR"])
-                                if(r["1 SSR"]=="n"){
-                                    return "<img class='check' width=20 height=20 src='images/checkg.png' />";
-                                }
-                            return '';
-                        }
-                    },{
-                        field: '2 SSR', title : '2 SSR', width: 82,
-                        render: function(r, tr){
-                            if(r["2 SSR"])
-                                if(r["2 SSR"]=="n"){
-                                    return "<img class='check' width=20 height=20 src='images/checkg.png' />";
-                                }
-                            return '';
-                        }
-                    },{
-                        field: '1 current (4-20 mA)', title : '1 current (4-20 mA)', width: 82,
-                        render: function(r, tr){
-                            if(r["1 current (4-20 mA)"])
-                                if(r["1 current (4-20 mA)"]=="n"){
-                                    return "<img class='check' width=20 height=20 src='images/checkg.png' />";
-                                }
-                            return '';
-                        }
-                    },{
-                        field: '1 SSR + 1 current (4-20 mA)', title : '1 SSR + 1 current (4-20 mA)', width: 82,
-                        render: function(r, tr){
-                            if(r["1 SSR + 1 current (4-20 mA)"])
-                                if(r["1 SSR + 1 current (4-20 mA)"]=="n"){
-                                    return "<img class='check' width=20 height=20 src='images/checkg.png' />";
-                                }
-                            return '';
-                        }
-                    },{
-                        field: 'Alarm', title : 'Alarm', width: 82,
-                        render: function(r, tr){
-                            if(r["Alarm"])
-                                return r["Alarm"];
-                            return '';
-                        }
-                    },{
-                        field: 'Modbus RS485', title : 'Modbus RS485', width: 82,
-                        render: function(r, tr){
-                            if(r["Modbus RS485"])
-                                if(r["Modbus RS485"]=="n"){
-                                    return "<img class='check' width=20 height=20 src='images/checkg.png' />";
-                                }
-                            return '';
-                        }
-                    },{
-                        field: 'Sampling Time', title : 'Sampling Time', width: 82,
-                        render: function(r, tr){
-                            if(r["Sampling Time"])
-                                return r["Sampling Time"];
-                            return '';
-                        }
-                    },{
-                        field: '100-240VAC', title : '100-240VAC', width: 82,
-                        render: function(r, tr){
-                            if(r["100-240VAC"])
-                                if(r["100-240VAC"]=="n"){
-                                    return "<img class='check' width=20 height=20 src='images/checkg.png' />";
-                                }
-                            return '';
-                        }
-                    },{
-                        field: '100-240VAC', title : '100-240VAC', width: 82,
-                        render: function(r, tr){
-                            if(r["100-240VAC"])
-                                if(r["100-240VAC"]=="n"){
-                                    return "<img class='check' width=20 height=20 src='images/checkg.png' />";
-                                }
-                            return '';
-                        }
-                    },{
-                        field: 'Industry Certification', title : 'Industry Certification', width: 162,
-                        render: function(r, tr){
-                            if(r["Industry Certification"])
-                                return r["Industry Certification"];
-                            return '';
-                        }
-                    }],
-                    loader: {
-                        url: data,
-                        params: { pageNo: 1},
-                        autoLoad: true
-                    },
-                    afterLoad: function(dd, po, me){
-                        
+            vw.mac('grid', {
+              sortLocally: true,
+              headerHeight: 48,
+              rowHeight : 32,
+              cols : [{
+                field: 'Zelio', width: 74, title : 'Zelio',
+                sizeable: true, moveable: false,
+                render: function(r, tr){
+                  if(r.Zelio){
+                    if(r.eshop){
+                      return "<a href='"+r.eshop+"' >"+r.Zelio+"</a>";
+                    }else{
+                      return r.Zelio;
                     }
-                });
+                  }else{
+                    return '';
+                  }
+                }
+              },{
+                field: '1/32 DIN 24*48mm', title : '1/32 DIN 24*48mm', width: 152,
+                render: function(r, tr){
+                  if(r["1/32 DIN 24*48mm"])
+                    if(r["1/32 DIN 24*48mm"]=="n"){
+                      return "<img class='check' width=20 height=20 src='images/checkg.png' />";
+                    }
+                  return '';
+                }
+              },{
+                field: '1/16-DIN 48*48mm', title : '1/16-DIN 48*48mm', width: 142,
+                render: function(r, tr){
+                  if(r["1/16-DIN 48*48mm"])
+                    if(r["1/16-DIN 48*48mm"]=="n"){
+                      return "<img class='check' width=20 height=20 src='images/checkg.png' />";
+                    }
+                  return '';
+                }
+              },{
+                field: '1/8-DIN 96*48mm', title : '1/8-DIN 96*48mm', width: 142,
+                render: function(r, tr){
+                  if(r["1/8-DIN 96*48mm"])
+                    if(r["1/8-DIN 96*48mm"]=="n"){
+                      return "<img class='check' width=20 height=20 src='images/checkg.png' />";
+                    }
+                  return '';
+                }
+              },{
+                field: 'Input', title : 'Input', width: 52,
+                render: function(r, tr){
+                  if(r["Input"])
+                    return r["Input"];
+                  return '';
+                }
+              },{
+                field: 'Hysteresis ON/OFF', title : 'Hysteresis ON/OFF', width: 52,
+                render: function(r, tr){
+                  if(r["Hysteresis ON/OFF"])
+                    if(r["Hysteresis ON/OFF"]=="n"){
+                      return "<img class='check' width=20 height=20 src='images/checkg.png' />";
+                    }
+                  return '';
+                }
+              },{
+                field: 'PID', title : 'PID', width: 52,
+                render: function(r, tr){
+                  if(r["PID"])
+                    if(r["PID"]=="n"){
+                      return "<img class='check' width=20 height=20 src='images/checkg.png' />";
+                    }
+                  return '';
+                }
+              },{
+                field: 'PID2', title : 'PID2', width: 52,
+                render: function(r, tr){
+                  if(r["PID2"])
+                    if(r["PID2"]=="n"){
+                      return "<img class='check' width=20 height=20 src='images/checkg.png' />";
+                    }
+                  return '';
+                }
+              },{
+                field: 'Fuzzy logic', title : 'Fuzzy logic', width: 52,
+                render: function(r, tr){
+                  if(r["Fuzzy logic"])
+                    if(r["Fuzzy logic"]=="n"){
+                      return "<img class='check' width=20 height=20 src='images/checkg.png' />";
+                    }
+                  return '';
+                }
+              },{
+                field: 'Auto-tuning', title : 'Auto-tuning', width: 52,
+                render: function(r, tr){
+                  if(r["Auto-tuning"])
+                    if(r["Auto-tuning"]=="n"){
+                      return "<img class='check' width=20 height=20 src='images/checkg.png' />";
+                    }
+                  return '';
+                }
+              },{
+                field: 'Ramps', title : 'Ramps', width: 82,
+                render: function(r, tr){
+                  if(r["Ramps"])
+                    return r["Ramps"];
+                  return '';
+                }
+              },{
+                field: '1 Relay', title : '1 Relay', width: 82,
+                render: function(r, tr){
+                  if(r["1 Relay"])
+                    if(r["1 Relay"]=="n"){
+                      return "<img class='check' width=20 height=20 src='images/checkg.png' />";
+                    }
+                  return '';
+                }
+              },{
+                field: '2 Relay', title : '2 Relay', width: 82,
+                render: function(r, tr){
+                  if(r["2 Relay"])
+                    if(r["2 Relay"]=="n"){
+                      return "<img class='check' width=20 height=20 src='images/checkg.png' />";
+                    }
+                  return '';
+                }
+              },{
+                field: '1 SSR', title : '1 SSR', width: 82,
+                render: function(r, tr){
+                  if(r["1 SSR"])
+                    if(r["1 SSR"]=="n"){
+                      return "<img class='check' width=20 height=20 src='images/checkg.png' />";
+                    }
+                  return '';
+                }
+              },{
+                field: '2 SSR', title : '2 SSR', width: 82,
+                render: function(r, tr){
+                  if(r["2 SSR"])
+                    if(r["2 SSR"]=="n"){
+                      return "<img class='check' width=20 height=20 src='images/checkg.png' />";
+                    }
+                  return '';
+                }
+              },{
+                field: '1 current (4-20 mA)', title : '1 current (4-20 mA)', width: 82,
+                render: function(r, tr){
+                  if(r["1 current (4-20 mA)"])
+                    if(r["1 current (4-20 mA)"]=="n"){
+                      return "<img class='check' width=20 height=20 src='images/checkg.png' />";
+                    }
+                  return '';
+                }
+              },{
+                field: '1 SSR + 1 current (4-20 mA)', title : '1 SSR + 1 current (4-20 mA)', width: 82,
+                render: function(r, tr){
+                  if(r["1 SSR + 1 current (4-20 mA)"])
+                    if(r["1 SSR + 1 current (4-20 mA)"]=="n"){
+                      return "<img class='check' width=20 height=20 src='images/checkg.png' />";
+                    }
+                  return '';
+                }
+              },{
+                field: 'Alarm', title : 'Alarm', width: 82,
+                render: function(r, tr){
+                  if(r["Alarm"])
+                    return r["Alarm"];
+                  return '';
+                }
+              },{
+                field: 'Modbus RS485', title : 'Modbus RS485', width: 82,
+                render: function(r, tr){
+                  if(r["Modbus RS485"])
+                    if(r["Modbus RS485"]=="n"){
+                      return "<img class='check' width=20 height=20 src='images/checkg.png' />";
+                    }
+                  return '';
+                }
+              },{
+                field: 'Sampling Time', title : 'Sampling Time', width: 82,
+                render: function(r, tr){
+                  if(r["Sampling Time"])
+                    return r["Sampling Time"];
+                  return '';
+                }
+              },{
+                field: '100-240VAC', title : '100-240VAC', width: 82,
+                render: function(r, tr){
+                  if(r["100-240VAC"])
+                    if(r["100-240VAC"]=="n"){
+                      return "<img class='check' width=20 height=20 src='images/checkg.png' />";
+                    }
+                  return '';
+                }
+              },{
+                field: '100-240VAC', title : '100-240VAC', width: 82,
+                render: function(r, tr){
+                  if(r["100-240VAC"])
+                    if(r["100-240VAC"]=="n"){
+                      return "<img class='check' width=20 height=20 src='images/checkg.png' />";
+                    }
+                  return '';
+                }
+              },{
+                field: 'Industry Certification', title : 'Industry Certification', width: 162,
+                render: function(r, tr){
+                  if(r["Industry Certification"])
+                    return r["Industry Certification"];
+                  return '';
+                }
+              }],
+              loader: {
+                url: data,
+                params: { pageNo: 1},
+                autoLoad: true
+              },
+              afterLoad: function(dd, po, me){
+
+              }
+            });
             vw.mac('grid_fixCol');
             var fns = ['Zelio'];
             vw.lockCols(fns);
-        }
-    })
+          }
+        })
+      }, false);
+
 
     </script>
 
@@ -297,6 +309,6 @@
     <div id="layoutBdload" style="display:block;">
         <img src="images/ajax-loader.gif" />
     </div>
-</div>  
+</div>
 </body>
 </html>

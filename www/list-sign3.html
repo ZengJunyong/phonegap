@@ -7,6 +7,7 @@
 <title>用户</title>
 <link href="css/base.css" rel="stylesheet" type="text/css">
 <link href="css/global.css" rel="stylesheet" type="text/css">
+  <script type="text/javascript" src="cordova.js"></script>
 <script src="js/kinvey-html5-1.1.7.min.js"></script>
 <script src="js/jquery.js"></script>
 <script src="js/cn.js"></script>
@@ -31,7 +32,7 @@
         <div class="return"></div>
         PANORAMA - SIGNALING
     </nav>
-    <div class="titleNav">        
+    <div class="titleNav">
         Sound
     </div>
 
@@ -44,172 +45,183 @@
     </div>
 
     <script type="text/javascript">
-    $(function() {
-        //初始化
-        var promise = Kinvey.init({
-            appKey: 'kid_eTzsTVEU1O',
-            appSecret: 'c57ef4f8036a4ca3b909141ef231ea04',
-            sync: {
-                enable: true,
-                online: navigator.onLine
-            }
-        }).then(function() {
+      document.addEventListener('deviceready', function() {
+        $(function() {
+          var find = function (offline,fallback) {
             var query = new Kinvey.Query();
             query.ascending("Harmony");
             var promise = Kinvey.DataStore.find("SigSound", query, {
-                offline : offlineFlag,
+              offline: offline,
+              fallback:fallback,
               success: function(response) {
                 createList(response);
               }
             });
-        });
-        function createList(data){   
-            console.log(data); 
+          };
+          //初始化
+          if(navigator.connection.type!='none'){
+            var promise = Kinvey.init({
+              appKey: 'kid_eTzsTVEU1O',
+              appSecret: 'c57ef4f8036a4ca3b909141ef231ea04',
+              sync: {
+                enable: true,
+                online: navigator.onLine
+              }
+            }).then(function() {
+              find(false,true);
+            });
+          }else{
+            find(true,false);
+          }
+          function createList(data){
+            console.log(data);
             $("#layoutBg").fadeOut(300);
             $("#layoutBdload").fadeOut(300);
             var pg = $('body');
             var vw = pg.find('.view');
             //蓝色第三个
-                vw.mac('grid', {
-                    sortLocally: true,
-                    headerHeight: 48,
-                    rowHeight : 32,
-                    cols : [{
-                        field: 'Harmony', width: 74, title : 'Harmony',
-                        sizeable: true, moveable: false,
-                        render: function(r, tr){
-                            if(r.Harmony){
-                                if(r.eshop){
-                                    return "<a href='"+r.eshop+"'>"+r.Harmony+"</a>";
-                                }else{
-                                    return r.Harmony;
-                                }
-                            }else{
-                                return '';
-                            }
-                        }
-                    },{
-                        field: 'Pannel mounting', title : 'Pannel mounting', width: 152,
-                        render: function(r, tr){
-                            if(r["Pannel mounting"])
-                                if(r["Pannel mounting"]=="a"){
-                                    return "<img class='check' width=20 height=20 src='images/checkg.png' />";
-                                }
-                            return '';
-                        }
-                    },{
-                        field: 'Horn Type', title : 'Horn Type', width: 152,
-                        render: function(r, tr){
-                            if(r["Horn Type"])
-                                if(r["Horn Type"]=="a"){
-                                    return "<img class='check' width=20 height=20 src='images/checkg.png' />";
-                                }
-                            return '';
-                        }
-                    },{
-                        field: 'Multi-sound Alarm', title : 'Multi-sound Alarm', width: 152,
-                        render: function(r, tr){
-                            if(r['Multi-sound Alarm'])
-                                if(r['Multi-sound Alarm']=="a"){
-                                    return "<img class='check' width=20 height=20 src='images/checkg.png' />";
-                                }
-                            return '';
-                        }
-                    },{
-                        field: 'Editable Voice', title : 'Editable Voice', width: 152,
-                        render: function(r, tr){
-                            if(r["Editable Voice"])
-                                if(r["Editable Voice"]=="a"){
-                                    return "<img class='check' width=20 height=20 src='images/checkg.png' />";
-                                }
-                            return '';
-                        }
-                    },{
-                        field: '0~89 dB', title : '0~89 dB', width: 152,
-                        render: function(r, tr){
-                            if(r["0~89 dB"])
-                                if(r["0~89 dB"]=="a"){
-                                    return "<img class='check' width=20 height=20 src='images/checkg.png' />";
-                                }
-                            return '';
-                        }
-                    },{
-                        field: '0~97 dB', title : '0~97 dB', width: 152,
-                        render: function(r, tr){
-                            if(r["0~97 dB"])
-                                if(r["0~97 dB"]=="a"){
-                                    return "<img class='check' width=20 height=20 src='images/checkg.png' />";
-                                }
-                            return '';
-                        }
-                    },{
-                        field: '0~105 dB', title : '0~105 dB', width: 152,
-                        render: function(r, tr){
-                            if(r["0~105 dB"])
-                                if(r["0~105 dB"]=="a"){
-                                    return "<img class='check' width=20 height=20 src='images/checkg.png' />";
-                                }
-                            return '';
-                        }
-                    },{
-                        field: 'Ø106', title : 'Ø106', width: 152,
-                        render: function(r, tr){
-                            if(r["Ø106"])
-                                if(r["Ø106"]=="a"){
-                                    return "<img class='check' width=20 height=20 src='images/checkg.png' />";
-                                }
-                            return '';
-                        }
-                    },{
-                        field: 'Channels/Tones', title : 'Channels/Tones', width: 152,
-                        render: function(r, tr){
-                            if(r["Channels/Tones"])
-                                return r["Channels/Tones"];
-                            return '';
-                        }
-                    },{
-                        field: 'Size', title : 'Size', width: 152,
-                        render: function(r, tr){
-                            if(r["Size"])
-                                return r["Size"];
-                            return '';
-                        }
-                    },{
-                        field: 'IP (up to )', title : 'IP (up to )', width: 152,
-                        render: function(r, tr){
-                            if(r["IP (up to )"])
-                                return r["IP (up to )"];
-                            return '';
-                        }
-                    },{
-                        field: 'Performance', title : 'Performance', width: 152,
-                        render: function(r, tr){
-                            if(r["Performance"])
-                                return getperformance(r["Performance"]);
-                            return '';
-                        }
-                    },{
-                        field: 'Industry Certifications', title : 'Industry Certifications', width: 162,
-                        render: function(r, tr){
-                            if(r["Industry Certifications"])
-                                return r["Industry Certifications"];
-                            return '';
-                        }
-                    }],
-                    loader: {
-                        url: data,
-                        params: { pageNo: 1},
-                        autoLoad: true
-                    },
-                    afterLoad: function(dd, po, me){
-                        
+            vw.mac('grid', {
+              sortLocally: true,
+              headerHeight: 48,
+              rowHeight : 32,
+              cols : [{
+                field: 'Harmony', width: 74, title : 'Harmony',
+                sizeable: true, moveable: false,
+                render: function(r, tr){
+                  if(r.Harmony){
+                    if(r.eshop){
+                      return "<a href='"+r.eshop+"'>"+r.Harmony+"</a>";
+                    }else{
+                      return r.Harmony;
                     }
-                });
+                  }else{
+                    return '';
+                  }
+                }
+              },{
+                field: 'Pannel mounting', title : 'Pannel mounting', width: 152,
+                render: function(r, tr){
+                  if(r["Pannel mounting"])
+                    if(r["Pannel mounting"]=="a"){
+                      return "<img class='check' width=20 height=20 src='images/checkg.png' />";
+                    }
+                  return '';
+                }
+              },{
+                field: 'Horn Type', title : 'Horn Type', width: 152,
+                render: function(r, tr){
+                  if(r["Horn Type"])
+                    if(r["Horn Type"]=="a"){
+                      return "<img class='check' width=20 height=20 src='images/checkg.png' />";
+                    }
+                  return '';
+                }
+              },{
+                field: 'Multi-sound Alarm', title : 'Multi-sound Alarm', width: 152,
+                render: function(r, tr){
+                  if(r['Multi-sound Alarm'])
+                    if(r['Multi-sound Alarm']=="a"){
+                      return "<img class='check' width=20 height=20 src='images/checkg.png' />";
+                    }
+                  return '';
+                }
+              },{
+                field: 'Editable Voice', title : 'Editable Voice', width: 152,
+                render: function(r, tr){
+                  if(r["Editable Voice"])
+                    if(r["Editable Voice"]=="a"){
+                      return "<img class='check' width=20 height=20 src='images/checkg.png' />";
+                    }
+                  return '';
+                }
+              },{
+                field: '0~89 dB', title : '0~89 dB', width: 152,
+                render: function(r, tr){
+                  if(r["0~89 dB"])
+                    if(r["0~89 dB"]=="a"){
+                      return "<img class='check' width=20 height=20 src='images/checkg.png' />";
+                    }
+                  return '';
+                }
+              },{
+                field: '0~97 dB', title : '0~97 dB', width: 152,
+                render: function(r, tr){
+                  if(r["0~97 dB"])
+                    if(r["0~97 dB"]=="a"){
+                      return "<img class='check' width=20 height=20 src='images/checkg.png' />";
+                    }
+                  return '';
+                }
+              },{
+                field: '0~105 dB', title : '0~105 dB', width: 152,
+                render: function(r, tr){
+                  if(r["0~105 dB"])
+                    if(r["0~105 dB"]=="a"){
+                      return "<img class='check' width=20 height=20 src='images/checkg.png' />";
+                    }
+                  return '';
+                }
+              },{
+                field: 'Ø106', title : 'Ø106', width: 152,
+                render: function(r, tr){
+                  if(r["Ø106"])
+                    if(r["Ø106"]=="a"){
+                      return "<img class='check' width=20 height=20 src='images/checkg.png' />";
+                    }
+                  return '';
+                }
+              },{
+                field: 'Channels/Tones', title : 'Channels/Tones', width: 152,
+                render: function(r, tr){
+                  if(r["Channels/Tones"])
+                    return r["Channels/Tones"];
+                  return '';
+                }
+              },{
+                field: 'Size', title : 'Size', width: 152,
+                render: function(r, tr){
+                  if(r["Size"])
+                    return r["Size"];
+                  return '';
+                }
+              },{
+                field: 'IP (up to )', title : 'IP (up to )', width: 152,
+                render: function(r, tr){
+                  if(r["IP (up to )"])
+                    return r["IP (up to )"];
+                  return '';
+                }
+              },{
+                field: 'Performance', title : 'Performance', width: 152,
+                render: function(r, tr){
+                  if(r["Performance"])
+                    return getperformance(r["Performance"]);
+                  return '';
+                }
+              },{
+                field: 'Industry Certifications', title : 'Industry Certifications', width: 162,
+                render: function(r, tr){
+                  if(r["Industry Certifications"])
+                    return r["Industry Certifications"];
+                  return '';
+                }
+              }],
+              loader: {
+                url: data,
+                params: { pageNo: 1},
+                autoLoad: true
+              },
+              afterLoad: function(dd, po, me){
+
+              }
+            });
             vw.mac('grid_fixCol');
             var fns = ['Harmony'];
             vw.lockCols(fns);
-        }
-    })
+          }
+        })
+      }, false);
+
 
     </script>
 
@@ -217,6 +229,6 @@
     <div id="layoutBdload" style="display:block;">
         <img src="images/ajax-loader.gif" />
     </div>
-</div>  
+</div>
 </body>
 </html>

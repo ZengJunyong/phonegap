@@ -7,6 +7,7 @@
 <title>用户</title>
 <link href="css/base.css" rel="stylesheet" type="text/css">
 <link href="css/global.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="cordova.js"></script>
 <script src="js/kinvey-html5-1.1.7.min.js"></script>
 <script src="js/jquery.js"></script>
 <script src="js/cn.js"></script>
@@ -31,7 +32,7 @@
         <div class="return"></div>
         PANORAMA - CONTROL
     </nav>
-    <div class="titleNav">        
+    <div class="titleNav">
         Pushbutton, Switches & Pilot Lights
     </div>
 
@@ -44,143 +45,156 @@
     </div>
 
     <script type="text/javascript">
-    $(function() {
+    document.addEventListener('deviceready', function() {
+      $(function() {
+
+        var find = function (offline,fallback) {
+          var query = new Kinvey.Query();
+          query.ascending("Harmony");
+          var promise = Kinvey.DataStore.find("ControlPushbuttons", query, {
+            offline: offline,
+            fallback:fallback,
+            success: function(response) {
+              createList(response);
+            }
+          });
+        };
         //初始化
-        var promise = Kinvey.init({
+        if(navigator.connection.type!='none'){
+          var promise = Kinvey.init({
             appKey: 'kid_eTzsTVEU1O',
             appSecret: 'c57ef4f8036a4ca3b909141ef231ea04',
             sync: {
-                enable: true,
-                online: navigator.onLine
+              enable: true,
+              online: navigator.onLine
             }
-        }).then(function() {
-            var query = new Kinvey.Query();
-            query.ascending("Harmony");
-            var promise = Kinvey.DataStore.find("ControlPushbuttons", query, {
-                offline : offlineFlag,
-              success: function(response) {
-                createList(response);
-              }
-            });
-        });
-        function createList(data){     
-            $("#layoutBg").fadeOut(300);
-            $("#layoutBdload").fadeOut(300);
-            var pg = $('body');
-            var vw = pg.find('.view');
-            console.log(data);
-            //红色第一个
-            vw.mac('grid', {
-                    sortLocally: true,
-                    headerHeight: 48,
-                    rowHeight : 32,
-                    cols : [{
-                        field: 'Harmony', width: 74, title : 'Harmony',
-                        sizeable: true, moveable: false,
-                        render: function(r, tr){
-                            if(r.Harmony){
-                                if(r.eshop){
-                                    return "<a href='"+r.eshop+"'>"+r.Harmony+"</a>";
-                                }else{
-                                    return r.Harmony;
-                                }
-                            }else{
-                                return '';
-                            }
-                        }
-                    },{
-                        field: 'Pushbutton', title : 'Pushbutton', width: 102,
-                        render: function(r, tr){
-                            if(r.Pushbutton)
-                                if(r.Pushbutton=="a"){
-                                    return "<img class='check' width=20 height=20 src='images/checkg.png' />";
-                                }
-                            return '';
-                        }
-                    },{
-                        field: 'Switches', title : 'Switches', width: 102,
-                        render: function(r, tr){
-                            if(r.Switches)
-                                if(r.Switches=="a"){
-                                    return "<img class='check' width=20 height=20 src='images/checkg.png' />";
-                                }
-                            return '';
-                        }
-                    },{
-                        field: 'Pilot Lights', title : 'Pilot Lights', width: 102,
-                        render: function(r, tr){
-                            if(r["Pilot Lights"])
-                                if(r["Pilot Lights"]=="a"){
-                                    return "<img class='check' width=20 height=20 src='images/checkg.png' />";
-                                }
-                            return '';
-                        }
-                    },{
-                        field: 'e-Stop', title : 'e-Stop', width: 102,
-                        render: function(r, tr){
-                            if(r["e-Stop"])
-                                if(r.eshop!=""){
-                                    return "<img class='check' width=20 height=20 src='images/checkg.png' />";
-                                }
-                            return '';
-                        }
-                    },{
-                        field: 'Diameter', title : 'Diameter', width: 102,
-                        render: function(r, tr){
-                            if(r.Diameter)
-                                return r.Diameter;
-                            return '';
-                        }
-                    },{
-                        field: 'Material', title : 'Material', width: 102,
-                        render: function(r, tr){
-                            if(r.Material)
-                                return r.Material;
-                            return '';
-                        }
-                    },{
-                        field: 'Modularity', title : 'Modularity', width: 102,
-                        render: function(r, tr){
-                            if(r.Modularity)
-                                return r.Modularity;
-                            return '';
-                        }
-                    },{
-                        field: 'Performance', title : 'Performance', width: 102,
-                        render: function(r, tr){
-                            if(r.Performance)
-                                return getperformance(r["Performance"]);
-                            return '';
-                        }
-                    },{
-                        field: 'Target applications', title : 'Target applications', width: 142,
-                        render: function(r, tr){
-                            if(r["Target applications"])
-                                return r["Target applications"];
-                            return '';
-                        }
-                    },{
-                        field: 'Industry Certifications', title : 'Industry Certifications', width: 162,
-                        render: function(r, tr){
-                            if(r["Industry Certifications"])
-                                return r["Industry Certifications"];
-                            return '';
-                        }
-                    }],
-                    loader: {
-                        url: data,
-                        params: { pageNo: 1},
-                        autoLoad: true
-                    },
-                    afterLoad: function(dd, po, me){
-                        
-                    }
-            });
-            vw.mac('grid_fixCol');
-            var fns = ['Harmony'];
-            vw.lockCols(fns);
+          }).then(function() {
+            find(false,true);
+          });
+        }else{
+          find(true,false);
         }
-    })
+
+        function createList(data){
+          $("#layoutBg").fadeOut(300);
+          $("#layoutBdload").fadeOut(300);
+          var pg = $('body');
+          var vw = pg.find('.view');
+          console.log(data);
+          //红色第一个
+          vw.mac('grid', {
+            sortLocally: true,
+            headerHeight: 48,
+            rowHeight : 32,
+            cols : [{
+              field: 'Harmony', width: 74, title : 'Harmony',
+              sizeable: true, moveable: false,
+              render: function(r, tr){
+                if(r.Harmony){
+                  if(r.eshop){
+                    return "<a href='"+r.eshop+"'>"+r.Harmony+"</a>";
+                  }else{
+                    return r.Harmony;
+                  }
+                }else{
+                  return '';
+                }
+              }
+            },{
+              field: 'Pushbutton', title : 'Pushbutton', width: 102,
+              render: function(r, tr){
+                if(r.Pushbutton)
+                  if(r.Pushbutton=="a"){
+                    return "<img class='check' width=20 height=20 src='images/checkg.png' />";
+                  }
+                return '';
+              }
+            },{
+              field: 'Switches', title : 'Switches', width: 102,
+              render: function(r, tr){
+                if(r.Switches)
+                  if(r.Switches=="a"){
+                    return "<img class='check' width=20 height=20 src='images/checkg.png' />";
+                  }
+                return '';
+              }
+            },{
+              field: 'Pilot Lights', title : 'Pilot Lights', width: 102,
+              render: function(r, tr){
+                if(r["Pilot Lights"])
+                  if(r["Pilot Lights"]=="a"){
+                    return "<img class='check' width=20 height=20 src='images/checkg.png' />";
+                  }
+                return '';
+              }
+            },{
+              field: 'e-Stop', title : 'e-Stop', width: 102,
+              render: function(r, tr){
+                if(r["e-Stop"])
+                  if(r.eshop!=""){
+                    return "<img class='check' width=20 height=20 src='images/checkg.png' />";
+                  }
+                return '';
+              }
+            },{
+              field: 'Diameter', title : 'Diameter', width: 102,
+              render: function(r, tr){
+                if(r.Diameter)
+                  return r.Diameter;
+                return '';
+              }
+            },{
+              field: 'Material', title : 'Material', width: 102,
+              render: function(r, tr){
+                if(r.Material)
+                  return r.Material;
+                return '';
+              }
+            },{
+              field: 'Modularity', title : 'Modularity', width: 102,
+              render: function(r, tr){
+                if(r.Modularity)
+                  return r.Modularity;
+                return '';
+              }
+            },{
+              field: 'Performance', title : 'Performance', width: 102,
+              render: function(r, tr){
+                if(r.Performance)
+                  return getperformance(r["Performance"]);
+                return '';
+              }
+            },{
+              field: 'Target applications', title : 'Target applications', width: 142,
+              render: function(r, tr){
+                if(r["Target applications"])
+                  return r["Target applications"];
+                return '';
+              }
+            },{
+              field: 'Industry Certifications', title : 'Industry Certifications', width: 162,
+              render: function(r, tr){
+                if(r["Industry Certifications"])
+                  return r["Industry Certifications"];
+                return '';
+              }
+            }],
+            loader: {
+              url: data,
+              params: { pageNo: 1},
+              autoLoad: true
+            },
+            afterLoad: function(dd, po, me){
+
+            }
+          });
+          vw.mac('grid_fixCol');
+          var fns = ['Harmony'];
+          vw.lockCols(fns);
+        }
+      })
+    }, false);
+
 
     </script>
 
@@ -188,6 +202,6 @@
     <div id="layoutBdload" style="display:block;">
         <img src="images/ajax-loader.gif" />
     </div>
-</div>  
+</div>
 </body>
 </html>

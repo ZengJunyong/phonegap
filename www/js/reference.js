@@ -23,34 +23,10 @@ document.addEventListener('deviceready', function() {
       qtype = "HMI";
     }
 
-    //if(Kinvey.Sync.isOnline()){
-    //初始化
-    if(navigator.connection.type!='none'){
-      var promise = Kinvey.init({
-        appKey: 'kid_eTzsTVEU1O',
-        appSecret: 'c57ef4f8036a4ca3b909141ef231ea04',
-        sync: {
-          enable: true,
-          online: navigator.onLine
-        }
-      }).then(function() {
-        var promise = Kinvey.DataStore.find(tale_name, query, {
-          success: function(response) {
-            if (response.length != 0) {
-              createResult(response);
-            }else{
-              $(".titleNav").html("Result - \"no result\"");
-              $("#layoutBg").fadeOut(300);
-              $("#layoutBdload").fadeOut(300);
-            }
-          }
-        });
-      });
-    }else{
-      //alert("开始查询");
+    var find = function (offline,fallback) {
       var promise = Kinvey.DataStore.find(tale_name, query, {
-        offline: true,
-        fallback:false,
+        offline: offline,
+        fallback:fallback,
         success: function(response) {
           if (response.length != 0) {
             createResult(response);
@@ -61,6 +37,21 @@ document.addEventListener('deviceready', function() {
           }
         }
       });
+    }
+
+    if(navigator.connection.type!='none'){
+      var promise = Kinvey.init({
+        appKey: 'kid_eTzsTVEU1O',
+        appSecret: 'c57ef4f8036a4ca3b909141ef231ea04',
+        sync: {
+          enable: true,
+          online: navigator.onLine
+        }
+      }).then(function() {
+        find(false,true);
+      });
+    }else{
+      find(true,false);
     }
 
     $(".titleNav").html("Result - \"" + k + "\"");

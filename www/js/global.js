@@ -102,20 +102,20 @@ $(function() {
       });
     });
 
-    //搜索按钮点击
-    $("#searchBtn").click(function(event) {
-      var qkeywords = $("#searchtxt").val();
-      if (qkeywords == "") {
-        alert("关键字不能为空");
-        return false;
-      }
-      var _type = $("#mainCheck li.active p").text().toLowerCase();
-      $("#layoutBg").css("display", "block");
-      $("#layoutBdload").css("display", "block");
+  });
 
-      window.location.href = "list-refrence.html?k=" + qkeywords + "&type=" + _type + "&stype=" + _type + "";
-    });
+  //搜索按钮点击
+  $("#searchBtn").click(function(event) {
+    var qkeywords = $("#searchtxt").val();
+    if (qkeywords == "") {
+      alert("关键字不能为空");
+      return false;
+    }
+    var _type = $("#mainCheck li.active p").text().toLowerCase();
+    $("#layoutBg").css("display", "block");
+    $("#layoutBdload").css("display", "block");
 
+    window.location.href = "list-refrence.html?k=" + qkeywords + "&type=" + _type + "&stype=" + _type + "";
   });
 
 
