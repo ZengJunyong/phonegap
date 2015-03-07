@@ -20,6 +20,7 @@ function onDeviceReady() {
 
 // 处理后退按钮操作
 function onBackKeyDown() {
+  history.back();
   function yesno() {
     if(confirm("是否退出APP?")){ navigator.app.exitApp(); }else return false; }
 
@@ -118,6 +119,9 @@ $(function() {
     window.location.href = "list-refrence.html?k=" + qkeywords + "&type=" + _type + "&stype=" + _type + "";
   });
 
+  $(".return").click(function(event) {
+    history.back();
+  });
 
   //登陆
   var doc = $(document);

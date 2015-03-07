@@ -7,6 +7,7 @@
 <title>封面</title>
 <link href="css/base.css" rel="stylesheet" type="text/css">
 <link href="css/global.css" rel="stylesheet" type="text/css">
+  <script type="text/javascript" src="cordova.js"></script>
 <script src="js/kinvey-html5-1.1.7.min.js"></script>
 <script src="js/jquery.js"></script>
 <script src="js/adaptUILayout.min.js"></script>
@@ -27,9 +28,15 @@
 
     <script type="text/javascript">
     setTimeout(function() {
-    	$("body").fadeOut(1000, function() {
-    		window.location.href="login.html";
-    	});
+      document.addEventListener('deviceready', function() {
+        $("body").fadeOut(1000, function() {
+          if(navigator.connection.type!='none'){
+            window.location.href="login.html";
+          }else{
+            window.location.href="content.html";
+          }
+        });
+      }, false);
     },3000)
     </script>
 </div>
